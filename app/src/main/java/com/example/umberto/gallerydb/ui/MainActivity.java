@@ -1,9 +1,11 @@
-package com.example.umberto.gallerydb;
+package com.example.umberto.gallerydb.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.umberto.gallerydb.R;
 
 public class MainActivity extends AppCompatActivity {
 
