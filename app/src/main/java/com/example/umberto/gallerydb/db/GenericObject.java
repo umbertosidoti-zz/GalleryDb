@@ -15,7 +15,6 @@ public interface GenericObject extends BaseColumns {
     int getType();
     String getImagePath();
     String getMetadata();
-    String getTabletName();
     String[] getAllColumns();
     String onCreateDb();
     String onUpdateDb();
