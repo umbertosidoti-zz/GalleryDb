@@ -14,4 +14,5 @@ public interface IServiceLocator {
 
     Loader<ArrayList<GenericObject>> getLoader(Context context);
     IGalleryController getGalleryController();
+    IImageLoader getImageLoader();
 }

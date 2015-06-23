@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.umberto.gallerydb.GalleryApplication;
 import com.example.umberto.gallerydb.R;
+import com.example.umberto.gallerydb.business.interfaces.IImageLoader;
 import com.example.umberto.gallerydb.db.GenericObject;
 
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
  */
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder> {
     private ArrayList<GenericObject> data;
+    private IImageLoader imageLoader=GalleryApplication.getInstance().getServiceLocator().getImageLoader();
 
     public static class GalleryViewHolder extends RecyclerView.ViewHolder {
         ImageView thumbnail;
@@ -42,7 +45,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
     @Override
     public void onBindViewHolder(GalleryViewHolder holder, int position) {
         GenericObject item=data.get(position);
-        holder.thumbnail.setImageResource(Integer.parseInt(item.getImagePath()));
+        imageLoader.loadImage(GalleryApplication.getInstance(),
+                holder.thumbnail,item.getImagePath(),R.drawable.no_image);
         if(item.getType()!=GenericObject.AUDIO_TYPE){
             holder.firstLine.setVisibility(View.GONE);
             holder.secondLine.setVisibility(View.GONE);
