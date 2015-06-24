@@ -1,5 +1,6 @@
 package com.example.umberto.gallerydb.ui;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -44,5 +45,10 @@ public class GalleryFragment extends Fragment implements IControllerListener {
     public void onDataReady(ArrayList<GenericObject> data) {
         adapter.setData(data);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        controller.onActivityResult(requestCode,resultCode,data);
     }
 }

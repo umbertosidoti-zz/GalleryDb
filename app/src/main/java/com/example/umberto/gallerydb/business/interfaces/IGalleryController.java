@@ -1,6 +1,7 @@
 package com.example.umberto.gallerydb.business.interfaces;
 
 
+import android.content.Intent;
 import android.support.v4.app.LoaderManager;
 
 /**
@@ -12,4 +13,5 @@ public interface IGalleryController {
     void onItemClick(int position);
     void onItemLongClick(int position);
     void setListener(IControllerListener listener);
+    void onActivityResult(int requestCode, int resultCode, Intent data);
 }

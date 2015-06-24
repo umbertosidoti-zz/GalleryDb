@@ -1,5 +1,6 @@
 package com.example.umberto.gallerydb.business;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -38,6 +39,11 @@ public class DefaultGalleryController implements IGalleryController,LoaderManage
     @Override
     public void setListener(IControllerListener listener) {
         this.listener=listener;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
     }
 
     @Override
