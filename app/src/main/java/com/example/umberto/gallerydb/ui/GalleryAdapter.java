@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.example.umberto.gallerydb.GalleryApplication;
 import com.example.umberto.gallerydb.R;
-import com.example.umberto.gallerydb.business.interfaces.IImageLoader;
-import com.example.umberto.gallerydb.db.GenericObject;
+import com.example.umberto.gallerydb.business.interfaces.GenericImageLoader;
+import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder> {
     private ArrayList<GenericObject> data;
-    private IImageLoader imageLoader=GalleryApplication.getInstance().getServiceLocator().getImageLoader();
+    private GenericImageLoader imageLoader=GalleryApplication.getInstance().getServiceLocator().getImageLoaderImplementation();
 
     public static class GalleryViewHolder extends RecyclerView.ViewHolder {
         ImageView thumbnail;

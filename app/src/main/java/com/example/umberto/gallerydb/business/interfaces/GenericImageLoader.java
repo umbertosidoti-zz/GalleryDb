@@ -6,6 +6,6 @@ import android.widget.ImageView;
 /**
  * Created by Umberto Sidoti on 23/06/2015.
  */
-public interface IImageLoader {
+public interface GenericImageLoader {
     void loadImage(Context context,ImageView destination,String path,int placeolderId);
 }

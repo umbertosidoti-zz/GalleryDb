@@ -5,7 +5,11 @@ package com.example.umberto.gallerydb.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.umberto.gallerydb.GalleryApplication;
 import com.example.umberto.gallerydb.R;
+import com.example.umberto.gallerydb.business.interfaces.GenericDataManager;
+import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 
 public class DatabaseHelper extends SQLiteOpenHelper
 {
@@ -35,24 +39,27 @@ public class DatabaseHelper extends SQLiteOpenHelper
      * make call to static method "getInstance()" instead.
      */
     private DatabaseHelper(Context context) {
-        super(context, context.getString(R.string.database_name), null,
-                context.getResources().getInteger(R.integer.database_version));
+        super(context,
+                GalleryApplication.getInstance().getServiceLocator().
+                        getDataManagerImplementation().getName(), null,
+                GalleryApplication.getInstance().getServiceLocator().
+                        getDataManagerImplementation().getVersion());
     }
 
     @Override
     public void onCreate(SQLiteDatabase database)
     {
-        ObjectFactory IBaseObject = new ObjectFactory();
-        GenericObject obj = IBaseObject.getDBObject(ObjectFactory.GENERIC_GALLERY_OBJ);
-        database.execSQL(obj.onCreateDb());
+        GenericDataManager dataManager = GalleryApplication.getInstance().
+                getServiceLocator().getDataManagerImplementation();
+        database.execSQL(dataManager.onCreate());
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase database, int ver1, int ver2)
     {
-        ObjectFactory IBaseObject = new ObjectFactory();
-        GenericObject obj = IBaseObject.getDBObject(ObjectFactory.GENERIC_GALLERY_OBJ);
-        database.execSQL(obj.onUpdateDb());
+        GenericDataManager dataManager = GalleryApplication.getInstance().
+                getServiceLocator().getDataManagerImplementation();
+        database.execSQL(dataManager.onUpdate());
         onCreate(database);
     }
 }
