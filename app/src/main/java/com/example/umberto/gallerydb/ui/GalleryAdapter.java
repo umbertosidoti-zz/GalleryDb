@@ -46,13 +46,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
     public void onBindViewHolder(GalleryViewHolder holder, int position) {
         GenericObject item=data.get(position);
         imageLoader.loadImage(GalleryApplication.getInstance(),
-                holder.thumbnail,item.getImagePath(),R.drawable.no_image);
+                holder.thumbnail,item.getFilePath(),R.drawable.no_image);
         if(item.getType()!=GenericObject.AUDIO_TYPE){
             holder.firstLine.setVisibility(View.GONE);
             holder.secondLine.setVisibility(View.GONE);
         }else{
-            holder.firstLine.setText(item.getMetadata());
-            holder.firstLine.setText(item.getMetadata());
+//            holder.firstLine.setText(item.getMetadata());
+//            holder.firstLine.setText(item.getMetadata());
         }
     }
 

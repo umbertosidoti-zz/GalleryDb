@@ -20,7 +20,8 @@ import java.util.ArrayList;
 /**
  * Created by Umberto Sidoti on 22/06/2015.
  */
-public class GalleryController implements GenericGalleryController,LoaderManager.LoaderCallbacks<ArrayList<GenericObject>> {
+public class GalleryController implements GenericGalleryController,
+        LoaderManager.LoaderCallbacks<ArrayList<GenericObject>> {
 
     private static final int LOADER_GALLERY_ID = 0;
     private static final int REQ_CODE_PICK_SOUND_FILE = 12;

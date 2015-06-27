@@ -1,7 +1,6 @@
 package com.example.umberto.gallerydb.ui;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -12,11 +11,13 @@ import android.view.ViewGroup;
 import android.support.v7.widget.RecyclerView;
 import com.example.umberto.gallerydb.R;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
+import com.example.umberto.gallerydb.business.interfaces.RecycleViewFragment;
 import com.example.umberto.gallerydb.business.interfaces.RecycleViewFragmentListener;
 
 import java.util.ArrayList;
 
-public class GalleryFragment extends Fragment  {
+
+public class GalleryFragment extends Fragment implements RecycleViewFragment {
 
     private RecyclerView recyclerView;
     private FloatingActionButton addButton;
@@ -66,4 +67,10 @@ public class GalleryFragment extends Fragment  {
                 listener.onAddButtonClick();
         }
     };
+
+    @Override
+    public void onDataReceived(ArrayList<GenericObject> data){
+        adapter.setData(data);
+        adapter.notifyDataSetChanged();
+    }
 }
