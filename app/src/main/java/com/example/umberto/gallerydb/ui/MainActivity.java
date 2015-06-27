@@ -1,20 +1,32 @@
 package com.example.umberto.gallerydb.ui;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.umberto.gallerydb.GalleryApplication;
 import com.example.umberto.gallerydb.R;
+import com.example.umberto.gallerydb.business.interfaces.GenericControllerListener;
+import com.example.umberto.gallerydb.business.interfaces.GenericGalleryController;
+import com.example.umberto.gallerydb.business.interfaces.GenericObject;
+import com.example.umberto.gallerydb.business.interfaces.RecycleViewFragmentListener;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
+public class MainActivity extends AppCompatActivity implements
+        GenericControllerListener,RecycleViewFragmentListener {
+
+    private GenericGalleryController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        controller= GalleryApplication.getInstance().getServiceLocator().
+                getGalleryControllerImplementation();
+        controller.onActivityCreated(getSupportLoaderManager());
     }
 
 
@@ -38,5 +50,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDataReady(ArrayList<GenericObject> data) {
+
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        controller.onItemClick(position);
+    }
+
+    @Override
+    public void onItemLongClick(int position) {
+        controller.onItemLongClick(position);
+    }
+
+    @Override
+    public void onAddButtonClick() {
+        controller.onAddButtonPressed(this);
     }
 }

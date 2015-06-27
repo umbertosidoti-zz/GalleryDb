@@ -1,5 +1,6 @@
 package com.example.umberto.gallerydb.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -9,20 +10,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.RecyclerView;
-import com.example.umberto.gallerydb.GalleryApplication;
 import com.example.umberto.gallerydb.R;
-import com.example.umberto.gallerydb.business.interfaces.GenericControllerListener;
-import com.example.umberto.gallerydb.business.interfaces.GenericGalleryController;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
+import com.example.umberto.gallerydb.business.interfaces.RecycleViewFragmentListener;
 
 import java.util.ArrayList;
 
-public class GalleryFragment extends Fragment implements GenericControllerListener {
+public class GalleryFragment extends Fragment  {
 
     private RecyclerView recyclerView;
     private FloatingActionButton addButton;
     private GalleryAdapter adapter;
-    private GenericGalleryController controller;
+    private RecycleViewFragmentListener listener;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof RecycleViewFragmentListener){
+            listener= (RecycleViewFragmentListener) activity;
+        }else{
+            new ClassCastException("Activity must implement RecycleViewFragmentListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener=null;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,26 +57,13 @@ public class GalleryFragment extends Fragment implements GenericControllerListen
         recyclerView.setAdapter(adapter);
 
         addButton.setOnClickListener(addButtonListener);
-
-        controller=GalleryApplication.getInstance().getServiceLocator().getGalleryControllerImplementation();
-        controller.onActivityCreated(getLoaderManager());
     }
 
     private View.OnClickListener addButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            controller.onAddButtonPressed(GalleryFragment.this);
+            if(listener!=null)
+                listener.onAddButtonClick();
         }
     };
-
-    @Override
-    public void onDataReady(ArrayList<GenericObject> data) {
-        adapter.setData(data);
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        controller.onActivityResult(requestCode,resultCode,data);
-    }
 }

@@ -1,5 +1,6 @@
 package com.example.umberto.gallerydb.business.interfaces;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -10,7 +11,7 @@ import android.support.v4.app.LoaderManager;
 public interface GenericGalleryController {
 
     void onActivityCreated(LoaderManager loaderManager);
-    void onAddButtonPressed(Fragment fragment);
+    void onAddButtonPressed(Activity activity);
     void onItemClick(int position);
     void onItemLongClick(int position);
     void setListener(GenericControllerListener listener);

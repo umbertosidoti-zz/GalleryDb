@@ -26,6 +26,7 @@ public class GalleryController implements GenericGalleryController,LoaderManager
     private static final int REQ_CODE_PICK_SOUND_FILE = 12;
     private GenericControllerListener listener;
 
+
     @Override
     public void onActivityCreated(android.support.v4.app.LoaderManager loaderManager) {
 
@@ -33,11 +34,11 @@ public class GalleryController implements GenericGalleryController,LoaderManager
     }
 
     @Override
-    public void onAddButtonPressed(Fragment fragment) {
+    public void onAddButtonPressed(Activity activity) {
 
         Intent intent= ApplicationUtils.getIntentFileChooser();
-        fragment.startActivityForResult(
-                Intent.createChooser(intent, fragment.getString(R.string.select_file_title)),
+        activity.startActivityForResult(
+                Intent.createChooser(intent, activity.getString(R.string.select_file_title)),
                 REQ_CODE_PICK_SOUND_FILE);
     }
 
