@@ -1,6 +1,10 @@
 package com.example.umberto.gallerydb.ui;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,11 +17,12 @@ import com.example.umberto.gallerydb.business.interfaces.GenericGalleryControlle
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 import com.example.umberto.gallerydb.business.interfaces.RecycleViewFragment;
 import com.example.umberto.gallerydb.business.interfaces.RecycleViewFragmentListener;
+import com.example.umberto.gallerydb.controller.UiControllerRetainFragment;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements
-        GenericControllerListener, RecycleViewFragmentListener {
+        GenericControllerListener, RecycleViewFragmentListener, LoaderManager.LoaderCallbacks<ArrayList<GenericObject>> {
 
     private GenericGalleryController controller;
     private RecycleViewFragment recycleFragment;
@@ -26,13 +31,23 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        recycleFragment = (RecycleViewFragment) findViewById(R.id.fragment);
 
-        controller = GalleryApplication.getInstance().getServiceLocator().
-                getGalleryControllerImplementation();
-        controller.onActivityCreated(getSupportLoaderManager());
+        FragmentManager fm = getFragmentManager();
+        recycleFragment = (RecycleViewFragment) fm.findFragmentById(R.id.fragment);
+        controller = (GenericGalleryController) fm.findFragmentByTag(GenericGalleryController.TAG_CONTROLLER);
+
+        if (controller == null)
+        {
+            controller =GalleryApplication.getInstance().getServiceLocator().
+                    getGalleryControllerImplementation();
+
+            if(!(controller instanceof Fragment))
+                new ClassCastException("Controller must be instance of fragment");
+
+            fm.beginTransaction().add((Fragment) controller, GenericGalleryController.TAG_CONTROLLER).commit();
+        }
+        getSupportLoaderManager().initLoader(controller.getLoaderId(), null, this);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -79,5 +94,21 @@ public class MainActivity extends AppCompatActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         controller.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public Loader<ArrayList<GenericObject>> onCreateLoader(int id, Bundle args) {
+        return GalleryApplication.getInstance().
+                getServiceLocator().getLoaderImplementation(this);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<ArrayList<GenericObject>> loader, ArrayList<GenericObject> data) {
+        recycleFragment.onDataReceived(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<ArrayList<GenericObject>> loader) {
+        recycleFragment.onDataReceived(null);
     }
 }

@@ -8,6 +8,7 @@ import com.example.umberto.gallerydb.business.interfaces.GenericGalleryControlle
 import com.example.umberto.gallerydb.business.interfaces.GenericImageLoader;
 import com.example.umberto.gallerydb.business.interfaces.GenericServiceLocator;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
+import com.example.umberto.gallerydb.controller.UiControllerRetainFragment;
 import com.example.umberto.gallerydb.db.GalleryDatabaseManager;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class GalleryServiceLocator implements GenericServiceLocator {
 
     @Override
     public GenericGalleryController getGalleryControllerImplementation() {
-        return new GalleryController();
+        return new UiControllerRetainFragment();
     }
 
     @Override
