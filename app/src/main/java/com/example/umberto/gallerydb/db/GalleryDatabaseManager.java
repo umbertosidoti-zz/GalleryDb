@@ -3,6 +3,8 @@ package com.example.umberto.gallerydb.db;
 import com.example.umberto.gallerydb.business.interfaces.GenericDataManager;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 
+import java.util.ArrayList;
+
 /**
  * Created by Umberto Sidoti on 26/06/2015.
  */
@@ -60,5 +62,10 @@ public class GalleryDatabaseManager implements GenericDataManager {
     @Override
     public int update(GenericObject obj) {
         return 0;
+    }
+
+    @Override
+    public ArrayList<GenericObject> getAll() {
+        return null;
     }
 }
