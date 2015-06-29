@@ -17,10 +17,6 @@ import java.util.ArrayList;
  * Created by Umberto Sidoti on 22/06/2015.
  */
 public class GalleryServiceLocator implements GenericServiceLocator {
-    @Override
-    public Loader<ArrayList<GenericObject>> getLoaderImplementation(Context context) {
-        return new GalleryLoader(context);
-    }
 
     @Override
     public GenericGalleryController getGalleryControllerImplementation() {

@@ -9,8 +9,6 @@ import java.util.ArrayList;
  * Created by Umberto Sidoti on 22/06/2015.
  */
 public interface GenericServiceLocator {
-
-    Loader<ArrayList<GenericObject>> getLoaderImplementation(Context context);
     GenericGalleryController getGalleryControllerImplementation();
     GenericImageLoader getImageLoaderImplementation();
     GenericDataManager getDataManagerImplementation();

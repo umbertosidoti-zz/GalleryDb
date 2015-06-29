@@ -10,7 +10,10 @@ import android.support.v4.app.LoaderManager;
 import com.example.umberto.gallerydb.R;
 import com.example.umberto.gallerydb.business.interfaces.GenericControllerListener;
 import com.example.umberto.gallerydb.business.interfaces.GenericGalleryController;
+import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 import com.example.umberto.gallerydb.utils.ApplicationUtils;
+
+import java.util.ArrayList;
 
 /**
  * Created by Umberto Sidoti on 29/06/2015.
@@ -18,6 +21,7 @@ import com.example.umberto.gallerydb.utils.ApplicationUtils;
 public class UiControllerRetainFragment extends Fragment implements GenericGalleryController {
     private static final int REQ_CODE_PICK_SOUND_FILE = 12;
     private GenericControllerListener listener;
+    private ArrayList<GenericObject> data;
 
     @Override
     public void onAttach(Activity activity) {
@@ -39,6 +43,12 @@ public class UiControllerRetainFragment extends Fragment implements GenericGalle
     public void onDetach() {
         super.onDetach();
         listener=null;
+    }
+
+    @Override
+    public void start() {
+        if(listener!=null)
+            listener.onDataReady(data);
     }
 
     @Override

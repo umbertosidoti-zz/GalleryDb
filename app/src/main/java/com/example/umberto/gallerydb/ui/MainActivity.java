@@ -21,7 +21,7 @@ import com.example.umberto.gallerydb.business.interfaces.RecycleViewFragmentList
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements
-        GenericControllerListener, RecycleViewFragmentListener, LoaderManager.LoaderCallbacks<ArrayList<GenericObject>> {
+        GenericControllerListener, RecycleViewFragmentListener {
 
     private GenericGalleryController controller;
     private RecycleViewFragment recycleFragment;
@@ -41,9 +41,10 @@ public class MainActivity extends AppCompatActivity implements
                     getGalleryControllerImplementation();
             if(!(controller instanceof Fragment))
                 new ClassCastException("Controller must be instance of fragment");
-            fm.beginTransaction().add((Fragment) controller, GenericGalleryController.TAG_CONTROLLER).commit();
+            fm.beginTransaction()
+                    .add((Fragment) controller, GenericGalleryController.TAG_CONTROLLER)
+                    .commit();
         }
-        getSupportLoaderManager().initLoader(controller.getLoaderId(), null, this);
     }
 
     @Override
@@ -91,21 +92,5 @@ public class MainActivity extends AppCompatActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         controller.onResultReceived(requestCode, resultCode, data);
-    }
-
-    @Override
-    public Loader<ArrayList<GenericObject>> onCreateLoader(int id, Bundle args) {
-        return GalleryApplication.getInstance().
-                getServiceLocator().getLoaderImplementation(this);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<ArrayList<GenericObject>> loader, ArrayList<GenericObject> data) {
-        recycleFragment.onDataReceived(data);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<ArrayList<GenericObject>> loader) {
-        recycleFragment.onDataReceived(null);
     }
 }

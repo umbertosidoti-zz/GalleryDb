@@ -8,6 +8,7 @@ import android.content.Intent;
  */
 public interface GenericGalleryController {
     String TAG_CONTROLLER="uiController";
+    void start();
     void onAddButtonPressed(Activity activity);
     void onItemClick(int position);
     void onItemLongClick(int position);
