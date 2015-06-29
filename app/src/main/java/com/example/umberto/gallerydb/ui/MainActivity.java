@@ -17,7 +17,6 @@ import com.example.umberto.gallerydb.business.interfaces.GenericGalleryControlle
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 import com.example.umberto.gallerydb.business.interfaces.RecycleViewFragment;
 import com.example.umberto.gallerydb.business.interfaces.RecycleViewFragmentListener;
-import com.example.umberto.gallerydb.controller.UiControllerRetainFragment;
 
 import java.util.ArrayList;
 
@@ -40,10 +39,8 @@ public class MainActivity extends AppCompatActivity implements
         {
             controller =GalleryApplication.getInstance().getServiceLocator().
                     getGalleryControllerImplementation();
-
             if(!(controller instanceof Fragment))
                 new ClassCastException("Controller must be instance of fragment");
-
             fm.beginTransaction().add((Fragment) controller, GenericGalleryController.TAG_CONTROLLER).commit();
         }
         getSupportLoaderManager().initLoader(controller.getLoaderId(), null, this);
@@ -93,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        controller.onActivityResult(requestCode, resultCode, data);
+        controller.onResultReceived(requestCode, resultCode, data);
     }
 
     @Override
