@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by Umberto Sidoti on 29/06/2015.
  */
-public class UiControllerRetainFragment extends Fragment implements GenericGalleryController {
+public class ControllerRetainFragment extends Fragment implements GenericGalleryController {
     private static final int REQ_CODE_PICK_SOUND_FILE = 12;
     private GenericControllerListener listener;
     private ArrayList<GenericObject> data;
@@ -81,10 +81,5 @@ public class UiControllerRetainFragment extends Fragment implements GenericGalle
 
     private void saveUriSelected(Uri uri) {
 
-    }
-
-    @Override
-    public int getLoaderId() {
-        return 0;
     }
 }

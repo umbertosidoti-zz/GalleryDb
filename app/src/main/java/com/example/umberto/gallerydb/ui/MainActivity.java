@@ -3,6 +3,7 @@ package com.example.umberto.gallerydb.ui;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.os.PersistableBundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -35,17 +36,22 @@ public class MainActivity extends AppCompatActivity implements
         recycleFragment = (RecycleViewFragment) fm.findFragmentById(R.id.fragment);
         controller = (GenericGalleryController) fm.findFragmentByTag(GenericGalleryController.TAG_CONTROLLER);
 
-        if (controller == null)
-        {
-            controller =GalleryApplication.getInstance().getServiceLocator().
+        if (controller == null) {
+            controller = GalleryApplication.getInstance().getServiceLocator().
                     getGalleryControllerImplementation();
-            if(!(controller instanceof Fragment))
+            if (!(controller instanceof Fragment))
                 new ClassCastException("Controller must be instance of fragment");
             fm.beginTransaction()
                     .add((Fragment) controller, GenericGalleryController.TAG_CONTROLLER)
                     .commit();
+            fm.executePendingTransactions();
         }
+
+        controller.start();
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

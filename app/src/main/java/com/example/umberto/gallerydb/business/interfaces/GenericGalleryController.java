@@ -13,5 +13,4 @@ public interface GenericGalleryController {
     void onItemClick(int position);
     void onItemLongClick(int position);
     void onResultReceived(int requestCode, int resultCode, Intent data);
-    int getLoaderId();
 }
