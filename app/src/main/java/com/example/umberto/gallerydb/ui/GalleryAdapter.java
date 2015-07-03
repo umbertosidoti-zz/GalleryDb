@@ -1,6 +1,5 @@
 package com.example.umberto.gallerydb.ui;
 
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,18 +11,23 @@ import com.example.umberto.gallerydb.GalleryApplication;
 import com.example.umberto.gallerydb.R;
 import com.example.umberto.gallerydb.business.interfaces.GenericImageLoader;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
+import com.example.umberto.gallerydb.business.interfaces.RecycleViewFragment;
+import com.example.umberto.gallerydb.utils.ApplicationUtils;
 
-import java.net.URI;
 import java.util.ArrayList;
 
 /**
  * Created by Umberto Sidoti on 19/06/2015.
  */
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder> {
+    private RecycleViewFragment listener;
     private ArrayList<GenericObject> data;
     private GenericImageLoader imageLoader=GalleryApplication.getInstance().getServiceLocator().getImageLoaderImplementation();
 
-    public static class GalleryViewHolder extends RecyclerView.ViewHolder {
+    public GalleryAdapter(RecycleViewFragment listener){
+        this.listener=listener;
+    }
+    public class GalleryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         ImageView thumbnail;
         TextView firstLine;
         TextView secondLine;
@@ -33,6 +37,21 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
             thumbnail = (ImageView) v.findViewById(R.id.thumbnail);
             firstLine = (TextView) v.findViewById(R.id.first_line);
             secondLine= (TextView) v.findViewById(R.id.second_line);
+            v.setOnClickListener(this);
+            v.setOnLongClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(listener!=null)
+                listener.onItemClick(getAdapterPosition());
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            if(listener!=null)
+                listener.onItemLongClick(getAdapterPosition());
+            return false;
         }
     }
 
@@ -47,14 +66,19 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
     @Override
     public void onBindViewHolder(GalleryViewHolder holder, int position) {
         GenericObject item=data.get(position);
-        imageLoader.loadImage(GalleryApplication.getInstance(),
-                holder.thumbnail,item.getFilePath(),R.drawable.no_image);
         if(item.getType()!=GenericObject.AUDIO_TYPE){
+            imageLoader.loadImage(GalleryApplication.getInstance(),
+                    holder.thumbnail,item.getFilePath(),R.drawable.no_image, R.drawable.loading);
             holder.firstLine.setVisibility(View.GONE);
             holder.secondLine.setVisibility(View.GONE);
         }else{
-//            holder.firstLine.setText(item.getMetadata());
-//            holder.firstLine.setText(item.getMetadata());
+            imageLoader.loadImage(GalleryApplication.getInstance(),
+                    holder.thumbnail,R.drawable.audio,R.drawable.no_image, R.drawable.loading);
+
+            holder.firstLine.setText(ApplicationUtils.getLineOneText(item));
+            holder.firstLine.setVisibility(View.VISIBLE);
+            holder.secondLine.setText(ApplicationUtils.getLineTwoText(item));
+            holder.secondLine.setVisibility(View.VISIBLE);
         }
     }
 

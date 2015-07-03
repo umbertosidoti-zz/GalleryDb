@@ -52,7 +52,7 @@ public class GalleryFragment extends Fragment implements RecycleViewFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        adapter = new GalleryAdapter();
+        adapter = new GalleryAdapter(this);
         recyclerView.setLayoutManager(
                 new GridLayoutManager(getActivity(),getResources().getInteger(R.integer.column_number)));
         recyclerView.setAdapter(adapter);
@@ -72,5 +72,15 @@ public class GalleryFragment extends Fragment implements RecycleViewFragment {
     public void onDataReceived(ArrayList<GenericObject> data){
         adapter.setData(data);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
+    }
+
+    @Override
+    public void onItemLongClick(int position) {
+
     }
 }

@@ -6,8 +6,10 @@ import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 
 import com.example.umberto.gallerydb.GalleryApplication;
+import com.example.umberto.gallerydb.R;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -43,6 +45,40 @@ public class ApplicationUtils {
         return obj;
     }
 
+    public static String getLineOneText(GenericObject object){
+
+        String title=null;
+        try {
+            title= object.getMetadata()
+                    .getString(Integer.toString(MediaMetadataRetriever.METADATA_KEY_TITLE));
+        } catch (JSONException e) {
+        }
+        if(title!=null){
+            return GalleryApplication.getInstance()
+                    .getResources().getString(R.string.title,title);
+        }else {
+            Uri uri=Uri.parse(object.getFilePath());
+            return  GalleryApplication.getInstance()
+                    .getResources().getString(R.string.filename, uri.getLastPathSegment());
+        }
+    }
+
+    public static String getLineTwoText(GenericObject object) {
+        String artist=null;
+        try {
+            artist= object.getMetadata()
+                    .getString(Integer.toString(MediaMetadataRetriever.METADATA_KEY_ARTIST));
+        } catch (JSONException e) {
+
+        }
+        return  GalleryApplication.getInstance()
+                .getResources().getString(R.string.artist,
+                        artist!=null?
+                                artist:GalleryApplication.getInstance()
+                                .getResources().getString(R.string.unknow));
+
+    }
+
     public static GenericObject getObjectFromData(int type,String path,JSONObject metadata) {
         GenericObject obj=GalleryApplication.getInstance().
                 getServiceLocator().getObjectImplementation();
@@ -67,16 +103,21 @@ public class ApplicationUtils {
         MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
         metadataRetriever.setDataSource(path);
         try {
-            HashMap<String,String> metadata= new HashMap<String,String>();
-
-            metadata.put(Integer.toString(MediaMetadataRetriever.METADATA_KEY_ALBUM),metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM));
-            metadata.put(Integer.toString(MediaMetadataRetriever.METADATA_KEY_ARTIST), metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST));
-            metadata.put(Integer.toString(MediaMetadataRetriever.METADATA_KEY_GENRE), metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_GENRE));
+            HashMap<String,String> metadata= new HashMap<>();
+            saveMetadata(metadataRetriever,metadata,MediaMetadataRetriever.METADATA_KEY_TITLE);
+            saveMetadata(metadataRetriever,metadata,MediaMetadataRetriever.METADATA_KEY_ARTIST);
+            saveMetadata(metadataRetriever,metadata,MediaMetadataRetriever.METADATA_KEY_ALBUM);
             return metadata;
         } catch (Exception e) {
 
             return null;
         }
+    }
+
+    private static void saveMetadata(MediaMetadataRetriever metadataRetriever, HashMap<String, String> metadata, int metadataKey) {
+        String value=metadataRetriever.extractMetadata(metadataKey);
+        if(value!=null)
+            metadata.put(Integer.toString(metadataKey),value);
     }
 
     private static int getTypeFromUri(Uri uri) {
@@ -94,4 +135,6 @@ public class ApplicationUtils {
         ContentResolver cR = GalleryApplication.getInstance().getContentResolver();
         return  cR.getType(uri);
     }
+
+
 }

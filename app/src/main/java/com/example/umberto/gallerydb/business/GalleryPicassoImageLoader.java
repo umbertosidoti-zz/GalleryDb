@@ -12,11 +12,22 @@ import com.squareup.picasso.Picasso;
  */
 public class GalleryPicassoImageLoader implements GenericImageLoader {
     @Override
-    public void loadImage(Context context, ImageView destination, String path, int placeolderId) {
+    public void loadImage(Context context, ImageView destination, String path, int placeolderId, int loadingId) {
 
         Picasso.with(context)
                 .load(Uri.parse(path))
                 .error(placeolderId)
+                .placeholder(loadingId)
+                .fit().centerCrop()
+                .into(destination);
+    }
+
+    @Override
+    public void loadImage(Context context, ImageView destination, int resourceID, int placeolderId, int loadingId) {
+        Picasso.with(context)
+                .load(resourceID)
+                .error(placeolderId)
+                .placeholder(loadingId)
                 .fit().centerCrop()
                 .into(destination);
     }

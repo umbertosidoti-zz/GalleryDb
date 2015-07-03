@@ -3,4 +3,5 @@
     <color name="floating_action_button_color">#FF4081</color>
     <color name="primary_color">#2196F3</color>
     <color name="dark_primary_color">#1976D2</color>
+    <color name="metadata_color">#CC2196F3</color>
 </resources>

@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.example.umberto.gallerydb.ui.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-<ImageView
-    android:id="@+id/thumbnail"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:padding="4dp">
+
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
     <TextView
         android:id="@+id/first_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/second_line"/>
+        android:layout_above="@+id/second_line"
+        style="@style/label_metadata" />
+
     <TextView
         android:id="@+id/second_line"
-        android:layout_marginBottom="@dimen/bottom_margine_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/bottom_margine_row"
+        style="@style/label_metadata" />
 </com.example.umberto.gallerydb.ui.SquareRelativeLayout>
