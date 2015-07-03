@@ -26,14 +26,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return sInstance;
     }
 
-    public SQLiteDatabase getWritableDbInstance(Context ctx) {
-        if (sInstance == null)
-            sInstance = getInstance(ctx);
-        if (writableDB == null)
-            writableDB = sInstance.getWritableDatabase();
-        return writableDB;
-    }
-
     /**
      * Constructor should be private to prevent direct instantiation.
      * make call to static method "getInstance()" instead.

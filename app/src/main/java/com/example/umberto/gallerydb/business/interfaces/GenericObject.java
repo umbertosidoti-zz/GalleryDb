@@ -3,6 +3,8 @@ package com.example.umberto.gallerydb.business.interfaces;
 import android.provider.BaseColumns;
 import android.util.SparseArray;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,9 +20,12 @@ public interface GenericObject {
     String AUDIO_MIME="audio/";
     String VIDEO_MIME="video/";
 
-    int getId();
-    void setId(int id);
+    long getId();
+    void setId(long id);
     int getType();
+    void setType(int type);
     String getFilePath();
-    SparseArray<String> getMetadata();
+    void setFilePath(String filePath);
+    JSONObject getMetadata();
+    void setMetadata(JSONObject metadata);
 }

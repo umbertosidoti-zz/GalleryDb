@@ -4,6 +4,8 @@ import android.util.SparseArray;
 
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 /**
@@ -11,24 +13,30 @@ import java.util.HashMap;
  */
 public class GalleryObject implements GenericObject {
 
-    private int id;
+    private long id;
     private int type;
     private String filePath;
-    private SparseArray<String> metadata;
+    private JSONObject metadata;
 
-    public GalleryObject(int type, String path, SparseArray<String> metadata) {
+    public void setType(int type) {
         this.type = type;
-        this.filePath = path;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public void setMetadata(JSONObject metadata) {
         this.metadata = metadata;
     }
 
     @Override
-    public int getId() {
+    public long getId() {
         return id;
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -43,7 +51,7 @@ public class GalleryObject implements GenericObject {
     }
 
     @Override
-    public SparseArray<String> getMetadata() {
+    public JSONObject getMetadata() {
         return metadata;
     }
 }

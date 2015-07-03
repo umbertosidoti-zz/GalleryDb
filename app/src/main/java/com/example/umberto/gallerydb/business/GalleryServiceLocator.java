@@ -33,7 +33,7 @@ public class GalleryServiceLocator implements GenericServiceLocator {
     }
 
     @Override
-    public GenericObject getObjectImplementation(int type,String path,SparseArray<String>metadata) {
-        return new GalleryObject(type,path,metadata);
+    public GenericObject getObjectImplementation() {
+        return new GalleryObject();
     }
 }

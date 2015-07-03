@@ -14,5 +14,5 @@ public interface GenericServiceLocator {
     GenericGalleryController getGalleryControllerImplementation();
     GenericImageLoader getImageLoaderImplementation();
     GenericDataManager getDataManagerImplementation();
-    GenericObject getObjectImplementation(int type,String path,SparseArray<String> metadata);
+    GenericObject getObjectImplementation();
 }

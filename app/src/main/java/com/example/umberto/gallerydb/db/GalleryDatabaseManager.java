@@ -1,9 +1,20 @@
 package com.example.umberto.gallerydb.db;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.provider.BaseColumns;
+
+import com.example.umberto.gallerydb.GalleryApplication;
 import com.example.umberto.gallerydb.business.interfaces.GenericDataManager;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
+import com.example.umberto.gallerydb.utils.ApplicationUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Umberto Sidoti on 26/06/2015.
@@ -18,7 +29,6 @@ public class GalleryDatabaseManager implements GenericDataManager {
     private final String COLUMN_FILEPATH = "filePath";
     private final String COLUMN_TYPE = "type";
     private final String COLUMN_METADATA = "metadata";
-    private final String _ID="_id";
 
     private String CREATE_TABLE = "create table " + TABLE_NAME
             + "(" + _ID + " integer primary key autoincrement, "
@@ -50,13 +60,32 @@ public class GalleryDatabaseManager implements GenericDataManager {
     }
 
     @Override
-    public int insert(GenericObject obj) {
-        return 0;
+    public long insert(GenericObject obj) {
+        ContentValues contentValue= getContentValue(obj);
+
+        return getWritableInstance().insert(TABLE_NAME, null, contentValue);
+    }
+
+    private SQLiteDatabase getWritableInstance(){
+        return  DatabaseHelper.getInstance(
+                GalleryApplication.getInstance())
+                .getWritableDatabase();
+    }
+
+    private ContentValues getContentValue(GenericObject obj) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_TYPE, obj.getType());
+        contentValues.put(COLUMN_FILEPATH, obj.getFilePath());
+
+        if(obj.getMetadata()!=null)
+            contentValues.put(COLUMN_METADATA, (obj.getMetadata().toString()));
+
+        return  contentValues;
     }
 
     @Override
     public int delete(GenericObject obj) {
-        return 0;
+        return getWritableInstance().delete(TABLE_NAME,_ID + " = " + obj.getId(), null);
     }
 
     @Override
@@ -66,6 +95,41 @@ public class GalleryDatabaseManager implements GenericDataManager {
 
     @Override
     public ArrayList<GenericObject> getAll() {
-        return null;
+        ArrayList<GenericObject> objects = new ArrayList<>();
+        SQLiteDatabase writableDB = DatabaseHelper.getInstance(
+                GalleryApplication.getInstance()).getWritableDatabase();
+
+        Cursor cursor = writableDB.query(TABLE_NAME,COLUMNS, null, null, null, null, null);
+
+        cursor.moveToFirst();
+
+        int type;
+        String path;
+        String metadataString;
+        long id;
+        JSONObject jsonObj = null;
+
+        while (!cursor.isAfterLast())
+        {
+            type=cursor.getInt(cursor.getColumnIndex(COLUMN_TYPE));
+            path=cursor.getString(cursor.getColumnIndex(COLUMN_FILEPATH));
+            metadataString=cursor.getString(cursor.getColumnIndex(COLUMN_METADATA));
+            if(metadataString!=null) {
+                try {
+                    jsonObj = new JSONObject(metadataString);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            id=cursor.getLong(cursor.getColumnIndex(_ID));
+            GenericObject obj= ApplicationUtils.getObjectFromData(type,path,jsonObj);
+            obj.setId(id);
+            objects.add(obj);
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+        return objects;
     }
 }

@@ -1,13 +1,17 @@
 package com.example.umberto.gallerydb.utils;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
-import android.util.SparseArray;
 import android.webkit.MimeTypeMap;
 
 import com.example.umberto.gallerydb.GalleryApplication;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 
 /**
@@ -28,13 +32,27 @@ public class ApplicationUtils {
         if(type==-1)
             return null;
         String path=uri.getPath();
-        SparseArray<String> metadata=getMetadataFromUri(type,uri);
+        HashMap<String,String> metadata=getMetadataFromUri(type,uri);
 
-        return GalleryApplication.getInstance().
-                getServiceLocator().getObjectImplementation(type, path, metadata);
+        GenericObject obj=GalleryApplication.getInstance().
+                getServiceLocator().getObjectImplementation();
+        obj.setType(type);
+        obj.setFilePath(path);
+        obj.setMetadata(new JSONObject(metadata));
+
+        return obj;
     }
 
-    private static SparseArray<String> getMetadataFromUri(int type, Uri uri) {
+    public static GenericObject getObjectFromData(int type,String path,JSONObject metadata) {
+        GenericObject obj=GalleryApplication.getInstance().
+                getServiceLocator().getObjectImplementation();
+        obj.setType(type);
+        obj.setFilePath(path);
+        obj.setMetadata(metadata);
+        return obj;
+    }
+
+    private static HashMap<String,String> getMetadataFromUri(int type, Uri uri) {
         switch (type){
             case GenericObject.IMAGE_TYPE:
             case GenericObject.VIDEO_TYPE:
@@ -45,15 +63,15 @@ public class ApplicationUtils {
         return null;
     }
 
-    private static SparseArray<String> getAudioMetadata(String path) {
+    private static HashMap<String,String> getAudioMetadata(String path) {
         MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
         metadataRetriever.setDataSource(path);
         try {
-            SparseArray<String> metadata= new SparseArray<>();
+            HashMap<String,String> metadata= new HashMap<String,String>();
 
-            metadata.put(MediaMetadataRetriever.METADATA_KEY_ALBUM,metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM));
-            metadata.put(MediaMetadataRetriever.METADATA_KEY_ARTIST, metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST));
-            metadata.put(MediaMetadataRetriever.METADATA_KEY_GENRE, metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_GENRE));
+            metadata.put(Integer.toString(MediaMetadataRetriever.METADATA_KEY_ALBUM),metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM));
+            metadata.put(Integer.toString(MediaMetadataRetriever.METADATA_KEY_ARTIST), metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST));
+            metadata.put(Integer.toString(MediaMetadataRetriever.METADATA_KEY_GENRE), metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_GENRE));
             return metadata;
         } catch (Exception e) {
 

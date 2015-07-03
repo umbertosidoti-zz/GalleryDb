@@ -22,7 +22,7 @@ public class SaveAndLoadGenericObject extends AsyncTask<Uri, Void, ArrayList<Gen
             return null;
 
         GenericObject object = ApplicationUtils.getObjectFromUri(uri);
-        int id = -1;
+        long id = -1;
         GenericDataManager dataManager = null;
 
         if (isCancelled())
