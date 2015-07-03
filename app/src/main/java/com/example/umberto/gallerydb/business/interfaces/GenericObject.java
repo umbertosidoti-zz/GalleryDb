@@ -25,7 +25,7 @@ public interface GenericObject {
     int getType();
     void setType(int type);
     String getFilePath();
-    void setFilePath(String filePath);
+    void setUriString(String filePath);
     JSONObject getMetadata();
     void setMetadata(JSONObject metadata);
 }

@@ -1,5 +1,6 @@
 package com.example.umberto.gallerydb.ui;
 
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.example.umberto.gallerydb.R;
 import com.example.umberto.gallerydb.business.interfaces.GenericImageLoader;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 
+import java.net.URI;
 import java.util.ArrayList;
 
 /**

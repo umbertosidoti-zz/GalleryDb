@@ -1,10 +1,9 @@
 package com.example.umberto.gallerydb.utils;
 
+import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
-import android.webkit.MimeTypeMap;
 
 import com.example.umberto.gallerydb.GalleryApplication;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
@@ -31,14 +30,15 @@ public class ApplicationUtils {
         int type=getTypeFromUri(uri);
         if(type==-1)
             return null;
-        String path=uri.getPath();
+        String path=uri.toString();
         HashMap<String,String> metadata=getMetadataFromUri(type,uri);
 
         GenericObject obj=GalleryApplication.getInstance().
                 getServiceLocator().getObjectImplementation();
         obj.setType(type);
-        obj.setFilePath(path);
-        obj.setMetadata(new JSONObject(metadata));
+        obj.setUriString(path);
+        if(metadata!=null)
+            obj.setMetadata(new JSONObject(metadata));
 
         return obj;
     }
@@ -47,7 +47,7 @@ public class ApplicationUtils {
         GenericObject obj=GalleryApplication.getInstance().
                 getServiceLocator().getObjectImplementation();
         obj.setType(type);
-        obj.setFilePath(path);
+        obj.setUriString(path);
         obj.setMetadata(metadata);
         return obj;
     }
@@ -80,7 +80,7 @@ public class ApplicationUtils {
     }
 
     private static int getTypeFromUri(Uri uri) {
-        String mime=getMimeType(uri.getPath());
+        String mime=getMimeType(uri);
         if(mime.contains(GenericObject.AUDIO_MIME))
             return GenericObject.AUDIO_TYPE;
         else if(mime.contains(GenericObject.VIDEO_MIME))
@@ -90,12 +90,8 @@ public class ApplicationUtils {
         return -1;
     }
 
-    public static String getMimeType(String url) {
-        String type = null;
-        String extension = MimeTypeMap.getFileExtensionFromUrl(url);
-        if (extension != null) {
-            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
-        }
-        return type;
+    public static String getMimeType(Uri uri) {
+        ContentResolver cR = GalleryApplication.getInstance().getContentResolver();
+        return  cR.getType(uri);
     }
 }

@@ -22,7 +22,7 @@ public class GalleryObject implements GenericObject {
         this.type = type;
     }
 
-    public void setFilePath(String filePath) {
+    public void setUriString(String filePath) {
         this.filePath = filePath;
     }
 
