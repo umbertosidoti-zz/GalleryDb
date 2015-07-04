@@ -9,4 +9,5 @@ import android.widget.ImageView;
 public interface GenericImageLoader {
     void loadImage(Context context, ImageView destination, String path, int placeolderId, int loadingId);
     void loadImage(Context context, ImageView destination, int resourceID, int placeolderId, int loadingId);
+    void loadImageFromVideoPath(Context context, ImageView destination, String path, int placeolderId, int loadingId);
 }

@@ -3,6 +3,7 @@ package com.example.umberto.gallerydb.utils;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 
@@ -141,5 +142,14 @@ public class ApplicationUtils {
     public static String getMimeType(Uri uri) {
         ContentResolver cR = GalleryApplication.getInstance().getContentResolver();
         return  cR.getType(uri);
+    }
+
+    public static Point getNewSizeRatio(double w, int height, int width) {
+        Point point= new Point();
+        double ratio = height;
+        ratio/=width;
+        point.x = (int) w;
+        point.y = (int) (w * ratio);
+        return point;
     }
 }

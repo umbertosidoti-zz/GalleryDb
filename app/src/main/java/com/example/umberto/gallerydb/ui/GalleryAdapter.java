@@ -80,7 +80,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
     }
 
     private void bindVideo(GenericObject item, GalleryViewHolder holder) {
-        holder.thumbnail.setImageBitmap(ApplicationUtils.getBitmapPreviewFromUri(item.getUriString()));
+//        holder.thumbnail.setImageBitmap(ApplicationUtils.getBitmapPreviewFromUri(item.getUriString()));
+        imageLoader.loadImageFromVideoPath(GalleryApplication.getInstance(),
+                holder.thumbnail,item.getUriString(),R.drawable.no_image, R.drawable.loading);
         holder.firstLine.setVisibility(View.GONE);
         holder.secondLine.setVisibility(View.GONE);
     }
