@@ -77,7 +77,7 @@ public class ApplicationUtils {
                 .getResources().getString(R.string.artist,
                         artist != null ?
                                 artist : GalleryApplication.getInstance()
-                                .getResources().getString(R.string.unknow));
+                                .getResources().getString(R.string.unknown));
 
     }
 

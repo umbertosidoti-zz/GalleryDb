@@ -5,7 +5,9 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.example.umberto.gallerydb.GalleryApplication;
 import com.example.umberto.gallerydb.task.LoadAllGenericObject;
 import com.example.umberto.gallerydb.task.SaveAndLoadGenericObject;
 import com.example.umberto.gallerydb.R;
@@ -75,12 +77,12 @@ public class ControllerRetainFragment extends Fragment implements GenericGallery
 
     @Override
     public void onItemClick(int position) {
-
+        Toast.makeText(GalleryApplication.getInstance(),"Clicked ="+position,Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onItemLongClick(int position) {
-
+        Toast.makeText(GalleryApplication.getInstance(),"Long clicked ="+position,Toast.LENGTH_SHORT).show();
     }
 
     @Override

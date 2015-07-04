@@ -3,4 +3,5 @@
     <dimen name="activity_horizontal_margin">8dp</dimen>
     <dimen name="activity_vertical_margin">8dp</dimen>
     <dimen name="bottom_margine_row">6dp</dimen>
+    <dimen name="spacing_item_recycleview">2dp</dimen>
 </resources>

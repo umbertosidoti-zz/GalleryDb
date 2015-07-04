@@ -56,6 +56,8 @@ public class GalleryFragment extends Fragment implements RecycleViewFragment {
         adapter = new GalleryAdapter(this);
         recyclerView.setLayoutManager(
                 new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.column_number)));
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_item_recycleview);
+        recyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         recyclerView.setAdapter(adapter);
         addButton.setOnClickListener(addButtonListener);
 
@@ -79,11 +81,13 @@ public class GalleryFragment extends Fragment implements RecycleViewFragment {
 
     @Override
     public void onItemClick(int position) {
-
+        if (listener != null)
+            listener.onItemClick(position);
     }
 
     @Override
     public void onItemLongClick(int position) {
-
+        if (listener != null)
+            listener.onItemLongClick(position);
     }
 }

@@ -5,5 +5,8 @@
     <string name="title">Title: %1s</string>
     <string name="filename">File name: %1s</string>
     <string name="artist">Artist: %1s</string>
-    <string name="unknow">unknow</string>
+    <string name="unknown">unknown</string>
+    <string name="type_audio">Audio</string>
+    <string name="type_video">Video</string>
+    <string name="type_image">Image</string>
 </resources>

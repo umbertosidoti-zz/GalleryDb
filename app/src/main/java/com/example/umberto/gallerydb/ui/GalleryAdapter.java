@@ -20,6 +20,7 @@ import java.util.ArrayList;
  * Created by Umberto Sidoti on 19/06/2015.
  */
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder> {
+    private static final String EMPTY_STRING = "";
     private RecycleViewFragment listener;
     private ArrayList<GenericObject> data;
     private GenericImageLoader imageLoader;
@@ -28,9 +29,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
         ImageView thumbnail;
         TextView firstLine;
         TextView secondLine;
+        TextView type;
 
         public GalleryViewHolder(View v) {
             super(v);
+            type= (TextView) v.findViewById(R.id.type);
             thumbnail = (ImageView) v.findViewById(R.id.thumbnail);
             firstLine = (TextView) v.findViewById(R.id.first_line);
             secondLine = (TextView) v.findViewById(R.id.second_line);
@@ -48,8 +51,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
         @Override
         public boolean onLongClick(View v) {
-            if (listener != null)
+            if (listener != null) {
                 listener.onItemLongClick(getAdapterPosition());
+                return true;
+            }
             return false;
         }
     }
@@ -79,27 +84,28 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
     }
 
     private void bindVideo(GenericObject item, GalleryViewHolder holder) {
+        holder.type.setText(R.string.type_video);
         imageLoader.loadImageFromVideoPath(GalleryApplication.getInstance(),
                 holder.thumbnail, item.getUriString(), R.drawable.no_image, R.drawable.loading);
-        holder.firstLine.setVisibility(View.GONE);
-        holder.secondLine.setVisibility(View.GONE);
+        holder.firstLine.setText(EMPTY_STRING);
+        holder.secondLine.setText(EMPTY_STRING);
     }
 
     private void bindAudio(GenericObject item, GalleryViewHolder holder) {
+        holder.type.setText(R.string.type_audio);
         imageLoader.loadImage(GalleryApplication.getInstance(),
                 holder.thumbnail, R.drawable.audio, R.drawable.no_image, R.drawable.loading);
 
         holder.firstLine.setText(ApplicationUtils.getLineOneText(item));
-        holder.firstLine.setVisibility(View.VISIBLE);
         holder.secondLine.setText(ApplicationUtils.getLineTwoText(item));
-        holder.secondLine.setVisibility(View.VISIBLE);
     }
 
     private void bindImage(GenericObject item, GalleryViewHolder holder) {
+        holder.type.setText(R.string.type_image);
         imageLoader.loadImage(GalleryApplication.getInstance(),
                 holder.thumbnail, item.getUriString(), R.drawable.no_image, R.drawable.loading);
-        holder.firstLine.setVisibility(View.GONE);
-        holder.secondLine.setVisibility(View.GONE);
+        holder.firstLine.setText(EMPTY_STRING);
+        holder.secondLine.setText(EMPTY_STRING);
     }
 
     @Override
