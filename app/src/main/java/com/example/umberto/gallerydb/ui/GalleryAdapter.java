@@ -66,20 +66,40 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
     @Override
     public void onBindViewHolder(GalleryViewHolder holder, int position) {
         GenericObject item=data.get(position);
-        if(item.getType()!=GenericObject.AUDIO_TYPE){
-            imageLoader.loadImage(GalleryApplication.getInstance(),
-                    holder.thumbnail,item.getFilePath(),R.drawable.no_image, R.drawable.loading);
-            holder.firstLine.setVisibility(View.GONE);
-            holder.secondLine.setVisibility(View.GONE);
-        }else{
-            imageLoader.loadImage(GalleryApplication.getInstance(),
-                    holder.thumbnail,R.drawable.audio,R.drawable.no_image, R.drawable.loading);
 
-            holder.firstLine.setText(ApplicationUtils.getLineOneText(item));
-            holder.firstLine.setVisibility(View.VISIBLE);
-            holder.secondLine.setText(ApplicationUtils.getLineTwoText(item));
-            holder.secondLine.setVisibility(View.VISIBLE);
+        switch (item.getType()){
+            case GenericObject.IMAGE_TYPE:
+                bindImage(item, holder);
+                break;
+            case GenericObject.AUDIO_TYPE:
+                bindAudio(item,holder);
+                break;
+            case GenericObject.VIDEO_TYPE:
+                bindVideo(item,holder);
         }
+    }
+
+    private void bindVideo(GenericObject item, GalleryViewHolder holder) {
+        holder.thumbnail.setImageBitmap(ApplicationUtils.getBitmapPreviewFromUri(item.getUriString()));
+        holder.firstLine.setVisibility(View.GONE);
+        holder.secondLine.setVisibility(View.GONE);
+    }
+
+    private void bindAudio(GenericObject item, GalleryViewHolder holder) {
+        imageLoader.loadImage(GalleryApplication.getInstance(),
+                holder.thumbnail,R.drawable.audio,R.drawable.no_image, R.drawable.loading);
+
+        holder.firstLine.setText(ApplicationUtils.getLineOneText(item));
+        holder.firstLine.setVisibility(View.VISIBLE);
+        holder.secondLine.setText(ApplicationUtils.getLineTwoText(item));
+        holder.secondLine.setVisibility(View.VISIBLE);
+    }
+
+    private void bindImage(GenericObject item, GalleryViewHolder holder) {
+        imageLoader.loadImage(GalleryApplication.getInstance(),
+                holder.thumbnail,item.getUriString(),R.drawable.no_image, R.drawable.loading);
+        holder.firstLine.setVisibility(View.GONE);
+        holder.secondLine.setVisibility(View.GONE);
     }
 
     @Override

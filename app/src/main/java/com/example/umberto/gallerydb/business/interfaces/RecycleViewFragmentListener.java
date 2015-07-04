@@ -7,4 +7,5 @@ public interface RecycleViewFragmentListener {
     void onItemClick(int position);
     void onItemLongClick(int position);
     void onAddButtonClick();
+    void onRecycleViewReady();
 }

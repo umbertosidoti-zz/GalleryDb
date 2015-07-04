@@ -22,8 +22,8 @@ public class GalleryObject implements GenericObject {
         this.type = type;
     }
 
-    public void setUriString(String filePath) {
-        this.filePath = filePath;
+    public void setUriString(String uriString) {
+        this.filePath = uriString;
     }
 
     public void setMetadata(JSONObject metadata) {
@@ -46,7 +46,7 @@ public class GalleryObject implements GenericObject {
     }
 
     @Override
-    public String getFilePath() {
+    public String getUriString() {
         return filePath;
     }
 

@@ -2,6 +2,7 @@ package com.example.umberto.gallerydb.utils;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 
@@ -57,7 +58,7 @@ public class ApplicationUtils {
             return GalleryApplication.getInstance()
                     .getResources().getString(R.string.title,title);
         }else {
-            Uri uri=Uri.parse(object.getFilePath());
+            Uri uri=Uri.parse(object.getUriString());
             return  GalleryApplication.getInstance()
                     .getResources().getString(R.string.filename, uri.getLastPathSegment());
         }
@@ -114,6 +115,12 @@ public class ApplicationUtils {
         }
     }
 
+    public static Bitmap getBitmapPreviewFromUri(String uriString){
+        MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+        mediaMetadataRetriever.setDataSource(GalleryApplication.getInstance(),Uri.parse(uriString));
+        return  mediaMetadataRetriever.getFrameAtTime(10);
+    }
+
     private static void saveMetadata(MediaMetadataRetriever metadataRetriever, HashMap<String, String> metadata, int metadataKey) {
         String value=metadataRetriever.extractMetadata(metadataKey);
         if(value!=null)
@@ -135,6 +142,4 @@ public class ApplicationUtils {
         ContentResolver cR = GalleryApplication.getInstance().getContentResolver();
         return  cR.getType(uri);
     }
-
-
 }

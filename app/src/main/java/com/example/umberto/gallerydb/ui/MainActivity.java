@@ -43,8 +43,11 @@ public class MainActivity extends AppCompatActivity implements
                     .commit();
             fm.executePendingTransactions();
         }
+    }
 
-        controller.start();
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -86,6 +89,11 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onAddButtonClick() {
         controller.onAddButtonPressed(this);
+    }
+
+    @Override
+    public void onRecycleViewReady() {
+        controller.start();
     }
 
     @Override

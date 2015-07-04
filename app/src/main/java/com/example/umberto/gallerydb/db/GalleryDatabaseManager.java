@@ -3,7 +3,6 @@ package com.example.umberto.gallerydb.db;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.BaseColumns;
 
 import com.example.umberto.gallerydb.GalleryApplication;
 import com.example.umberto.gallerydb.business.interfaces.GenericDataManager;
@@ -14,7 +13,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by Umberto Sidoti on 26/06/2015.
@@ -75,7 +73,7 @@ public class GalleryDatabaseManager implements GenericDataManager {
     private ContentValues getContentValue(GenericObject obj) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_TYPE, obj.getType());
-        contentValues.put(COLUMN_FILEPATH, obj.getFilePath());
+        contentValues.put(COLUMN_FILEPATH, obj.getUriString());
 
         if(obj.getMetadata()!=null)
             contentValues.put(COLUMN_METADATA, (obj.getMetadata().toString()));

@@ -56,8 +56,10 @@ public class GalleryFragment extends Fragment implements RecycleViewFragment {
         recyclerView.setLayoutManager(
                 new GridLayoutManager(getActivity(),getResources().getInteger(R.integer.column_number)));
         recyclerView.setAdapter(adapter);
-
         addButton.setOnClickListener(addButtonListener);
+
+        if (listener!=null)
+            listener.onRecycleViewReady();
     }
 
     private View.OnClickListener addButtonListener = new View.OnClickListener() {
