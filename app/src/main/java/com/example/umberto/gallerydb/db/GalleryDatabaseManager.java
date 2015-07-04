@@ -19,9 +19,8 @@ import java.util.ArrayList;
  */
 public class GalleryDatabaseManager implements GenericDataManager {
 
-
     private static final String DATABASE_NAME = "GalleryDb";
-    private static final int DATABASE_VERSION=1;
+    private static final int DATABASE_VERSION = 1;
 
     private final String TABLE_NAME = "galleryItems";
     private final String COLUMN_FILEPATH = "filePath";
@@ -32,10 +31,10 @@ public class GalleryDatabaseManager implements GenericDataManager {
             + "(" + _ID + " integer primary key autoincrement, "
             + COLUMN_TYPE + " integer not null,"
             + COLUMN_FILEPATH + " text not null,"
-            + COLUMN_METADATA +" text);";
+            + COLUMN_METADATA + " text);";
 
     public final String[] COLUMNS = new String[]{_ID, COLUMN_TYPE, COLUMN_FILEPATH, COLUMN_METADATA};
-    String UPDATE_TABLE =  "DROP TABLE IF EXISTS " + TABLE_NAME;
+    String UPDATE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
     @Override
     public String onCreate() {
@@ -59,13 +58,12 @@ public class GalleryDatabaseManager implements GenericDataManager {
 
     @Override
     public long insert(GenericObject obj) {
-        ContentValues contentValue= getContentValue(obj);
-
+        ContentValues contentValue = getContentValue(obj);
         return getWritableInstance().insert(TABLE_NAME, null, contentValue);
     }
 
-    private SQLiteDatabase getWritableInstance(){
-        return  DatabaseHelper.getInstance(
+    private SQLiteDatabase getWritableInstance() {
+        return DatabaseHelper.getInstance(
                 GalleryApplication.getInstance())
                 .getWritableDatabase();
     }
@@ -75,15 +73,15 @@ public class GalleryDatabaseManager implements GenericDataManager {
         contentValues.put(COLUMN_TYPE, obj.getType());
         contentValues.put(COLUMN_FILEPATH, obj.getUriString());
 
-        if(obj.getMetadata()!=null)
+        if (obj.getMetadata() != null)
             contentValues.put(COLUMN_METADATA, (obj.getMetadata().toString()));
 
-        return  contentValues;
+        return contentValues;
     }
 
     @Override
     public int delete(GenericObject obj) {
-        return getWritableInstance().delete(TABLE_NAME,_ID + " = " + obj.getId(), null);
+        return getWritableInstance().delete(TABLE_NAME, _ID + " = " + obj.getId(), null);
     }
 
     @Override
@@ -97,7 +95,7 @@ public class GalleryDatabaseManager implements GenericDataManager {
         SQLiteDatabase writableDB = DatabaseHelper.getInstance(
                 GalleryApplication.getInstance()).getWritableDatabase();
 
-        Cursor cursor = writableDB.query(TABLE_NAME,COLUMNS, null, null, null, null, null);
+        Cursor cursor = writableDB.query(TABLE_NAME, COLUMNS, null, null, null, null, null);
 
         cursor.moveToFirst();
 
@@ -107,12 +105,11 @@ public class GalleryDatabaseManager implements GenericDataManager {
         long id;
         JSONObject jsonObj = null;
 
-        while (!cursor.isAfterLast())
-        {
-            type=cursor.getInt(cursor.getColumnIndex(COLUMN_TYPE));
-            path=cursor.getString(cursor.getColumnIndex(COLUMN_FILEPATH));
-            metadataString=cursor.getString(cursor.getColumnIndex(COLUMN_METADATA));
-            if(metadataString!=null) {
+        while (!cursor.isAfterLast()) {
+            type = cursor.getInt(cursor.getColumnIndex(COLUMN_TYPE));
+            path = cursor.getString(cursor.getColumnIndex(COLUMN_FILEPATH));
+            metadataString = cursor.getString(cursor.getColumnIndex(COLUMN_METADATA));
+            if (metadataString != null) {
                 try {
                     jsonObj = new JSONObject(metadataString);
 
@@ -120,8 +117,8 @@ public class GalleryDatabaseManager implements GenericDataManager {
                     e.printStackTrace();
                 }
             }
-            id=cursor.getLong(cursor.getColumnIndex(_ID));
-            GenericObject obj= ApplicationUtils.getObjectFromData(type,path,jsonObj);
+            id = cursor.getLong(cursor.getColumnIndex(_ID));
+            GenericObject obj = ApplicationUtils.getObjectFromData(type, path, jsonObj);
             obj.setId(id);
             objects.add(obj);
             cursor.moveToNext();

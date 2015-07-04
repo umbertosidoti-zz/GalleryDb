@@ -1,12 +1,10 @@
 package com.example.umberto.gallerydb.task;
 
-import android.net.Uri;
 import android.os.AsyncTask;
 
 import com.example.umberto.gallerydb.GalleryApplication;
 import com.example.umberto.gallerydb.business.interfaces.GenericDataManager;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
-import com.example.umberto.gallerydb.utils.ApplicationUtils;
 
 import java.util.ArrayList;
 

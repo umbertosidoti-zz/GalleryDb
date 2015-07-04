@@ -5,7 +5,10 @@ package com.example.umberto.gallerydb.business.interfaces;
  */
 public interface RecycleViewFragmentListener {
     void onItemClick(int position);
+
     void onItemLongClick(int position);
+
     void onAddButtonClick();
+
     void onRecycleViewReady();
 }

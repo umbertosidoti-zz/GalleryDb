@@ -33,16 +33,20 @@ public class MainActivity extends AppCompatActivity implements
         recycleFragment = (RecycleViewFragment) fm.findFragmentById(R.id.fragment);
         controller = (GenericGalleryController) fm.findFragmentByTag(GenericGalleryController.TAG_CONTROLLER);
 
-        if (controller == null) {
-            controller = GalleryApplication.getInstance().getServiceLocator().
-                    getGalleryControllerImplementation();
-            if (!(controller instanceof Fragment))
-                new ClassCastException("Controller must be instance of fragment");
-            fm.beginTransaction()
-                    .add((Fragment) controller, GenericGalleryController.TAG_CONTROLLER)
-                    .commit();
-            fm.executePendingTransactions();
-        }
+        if (controller == null)
+            createController(fm);
+    }
+
+    private void createController(FragmentManager fm) {
+        controller = GalleryApplication.getInstance().getServiceLocator().
+                getGalleryControllerImplementation();
+        if (!(controller instanceof Fragment))
+            new ClassCastException("Controller must be instance of fragment");
+        fm.beginTransaction()
+                .add((Fragment) controller, GenericGalleryController.TAG_CONTROLLER)
+                .commit();
+
+        fm.executePendingTransactions();
     }
 
     @Override

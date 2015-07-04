@@ -22,7 +22,7 @@ import java.util.HashMap;
  */
 public class ApplicationUtils {
 
-    public static Intent getIntentFileChooser(){
+    public static Intent getIntentFileChooser() {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*,video/*,audio/*");
@@ -31,58 +31,58 @@ public class ApplicationUtils {
 
     public static GenericObject getObjectFromUri(Uri uri) {
 
-        int type=getTypeFromUri(uri);
-        if(type==-1)
+        int type = getTypeFromUri(uri);
+        if (type == -1)
             return null;
-        String path=uri.toString();
-        HashMap<String,String> metadata=getMetadataFromUri(type,uri);
+        String path = uri.toString();
+        HashMap<String, String> metadata = getMetadataFromUri(type, uri);
 
-        GenericObject obj=GalleryApplication.getInstance().
+        GenericObject obj = GalleryApplication.getInstance().
                 getServiceLocator().getObjectImplementation();
         obj.setType(type);
         obj.setUriString(path);
-        if(metadata!=null)
+        if (metadata != null)
             obj.setMetadata(new JSONObject(metadata));
 
         return obj;
     }
 
-    public static String getLineOneText(GenericObject object){
+    public static String getLineOneText(GenericObject object) {
 
-        String title=null;
+        String title = null;
         try {
-            title= object.getMetadata()
+            title = object.getMetadata()
                     .getString(Integer.toString(MediaMetadataRetriever.METADATA_KEY_TITLE));
         } catch (JSONException e) {
         }
-        if(title!=null){
+        if (title != null) {
             return GalleryApplication.getInstance()
-                    .getResources().getString(R.string.title,title);
-        }else {
-            Uri uri=Uri.parse(object.getUriString());
-            return  GalleryApplication.getInstance()
+                    .getResources().getString(R.string.title, title);
+        } else {
+            Uri uri = Uri.parse(object.getUriString());
+            return GalleryApplication.getInstance()
                     .getResources().getString(R.string.filename, uri.getLastPathSegment());
         }
     }
 
     public static String getLineTwoText(GenericObject object) {
-        String artist=null;
+        String artist = null;
         try {
-            artist= object.getMetadata()
+            artist = object.getMetadata()
                     .getString(Integer.toString(MediaMetadataRetriever.METADATA_KEY_ARTIST));
         } catch (JSONException e) {
 
         }
-        return  GalleryApplication.getInstance()
+        return GalleryApplication.getInstance()
                 .getResources().getString(R.string.artist,
-                        artist!=null?
-                                artist:GalleryApplication.getInstance()
+                        artist != null ?
+                                artist : GalleryApplication.getInstance()
                                 .getResources().getString(R.string.unknow));
 
     }
 
-    public static GenericObject getObjectFromData(int type,String path,JSONObject metadata) {
-        GenericObject obj=GalleryApplication.getInstance().
+    public static GenericObject getObjectFromData(int type, String path, JSONObject metadata) {
+        GenericObject obj = GalleryApplication.getInstance().
                 getServiceLocator().getObjectImplementation();
         obj.setType(type);
         obj.setUriString(path);
@@ -90,8 +90,8 @@ public class ApplicationUtils {
         return obj;
     }
 
-    private static HashMap<String,String> getMetadataFromUri(int type, Uri uri) {
-        switch (type){
+    private static HashMap<String, String> getMetadataFromUri(int type, Uri uri) {
+        switch (type) {
             case GenericObject.IMAGE_TYPE:
             case GenericObject.VIDEO_TYPE:
                 return null;
@@ -101,14 +101,14 @@ public class ApplicationUtils {
         return null;
     }
 
-    private static HashMap<String,String> getAudioMetadata(String path) {
+    private static HashMap<String, String> getAudioMetadata(String path) {
         MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
         metadataRetriever.setDataSource(path);
         try {
-            HashMap<String,String> metadata= new HashMap<>();
-            saveMetadata(metadataRetriever,metadata,MediaMetadataRetriever.METADATA_KEY_TITLE);
-            saveMetadata(metadataRetriever,metadata,MediaMetadataRetriever.METADATA_KEY_ARTIST);
-            saveMetadata(metadataRetriever,metadata,MediaMetadataRetriever.METADATA_KEY_ALBUM);
+            HashMap<String, String> metadata = new HashMap<>();
+            saveMetadata(metadataRetriever, metadata, MediaMetadataRetriever.METADATA_KEY_TITLE);
+            saveMetadata(metadataRetriever, metadata, MediaMetadataRetriever.METADATA_KEY_ARTIST);
+            saveMetadata(metadataRetriever, metadata, MediaMetadataRetriever.METADATA_KEY_ALBUM);
             return metadata;
         } catch (Exception e) {
 
@@ -116,38 +116,38 @@ public class ApplicationUtils {
         }
     }
 
-    public static Bitmap getBitmapPreviewFromUri(String uriString){
+    public static Bitmap getBitmapPreviewFromUri(String uriString) {
         MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
-        mediaMetadataRetriever.setDataSource(GalleryApplication.getInstance(),Uri.parse(uriString));
-        return  mediaMetadataRetriever.getFrameAtTime(10);
+        mediaMetadataRetriever.setDataSource(GalleryApplication.getInstance(), Uri.parse(uriString));
+        return mediaMetadataRetriever.getFrameAtTime(10);
     }
 
     private static void saveMetadata(MediaMetadataRetriever metadataRetriever, HashMap<String, String> metadata, int metadataKey) {
-        String value=metadataRetriever.extractMetadata(metadataKey);
-        if(value!=null)
-            metadata.put(Integer.toString(metadataKey),value);
+        String value = metadataRetriever.extractMetadata(metadataKey);
+        if (value != null)
+            metadata.put(Integer.toString(metadataKey), value);
     }
 
     private static int getTypeFromUri(Uri uri) {
-        String mime=getMimeType(uri);
-        if(mime.contains(GenericObject.AUDIO_MIME))
+        String mime = getMimeType(uri);
+        if (mime.contains(GenericObject.AUDIO_MIME))
             return GenericObject.AUDIO_TYPE;
-        else if(mime.contains(GenericObject.VIDEO_MIME))
+        else if (mime.contains(GenericObject.VIDEO_MIME))
             return GenericObject.VIDEO_TYPE;
-        else if(mime.contains(GenericObject.IMAGE_MIME))
+        else if (mime.contains(GenericObject.IMAGE_MIME))
             return GenericObject.IMAGE_TYPE;
         return -1;
     }
 
     public static String getMimeType(Uri uri) {
         ContentResolver cR = GalleryApplication.getInstance().getContentResolver();
-        return  cR.getType(uri);
+        return cR.getType(uri);
     }
 
     public static Point getNewSizeRatio(double w, int height, int width) {
-        Point point= new Point();
+        Point point = new Point();
         double ratio = height;
-        ratio/=width;
+        ratio /= width;
         point.x = (int) w;
         point.y = (int) (w * ratio);
         return point;

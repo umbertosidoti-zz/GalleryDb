@@ -9,11 +9,18 @@ import java.util.ArrayList;
  */
 public interface GenericDataManager extends BaseColumns {
     String onCreate();
+
     String onUpdate();
+
     String getName();
+
     int getVersion();
+
     long insert(GenericObject obj);
+
     int delete(GenericObject obj);
+
     int update(GenericObject obj);
+
     ArrayList<GenericObject> getAll();
 }

@@ -1,7 +1,5 @@
 package com.example.umberto.gallerydb.business.interfaces;
 
-import com.example.umberto.gallerydb.business.interfaces.GenericObject;
-
 import java.util.ArrayList;
 
 /**
@@ -9,6 +7,8 @@ import java.util.ArrayList;
  */
 public interface RecycleViewFragment {
     void onDataReceived(ArrayList<GenericObject> data);
+
     void onItemClick(int position);
+
     void onItemLongClick(int position);
 }

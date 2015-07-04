@@ -104,7 +104,7 @@ public class ControllerRetainFragment extends Fragment implements GenericGallery
 
     private void sendData(ArrayList<GenericObject> arrayData) {
         if (arrayData != null) {
-            data=arrayData;
+            data = arrayData;
             if (listener != null)
                 listener.onDataReady(data);
         }
