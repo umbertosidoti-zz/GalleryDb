@@ -4,7 +4,7 @@ import org.json.JSONObject;
 /**
  * Created by Umberto Sidoti on 19/06/2015.
  */
-public interface GenericObject {
+public interface GenericObject extends Comparable<GenericObject> {
     int IMAGE_TYPE = 0;
     int VIDEO_TYPE = 1;
     int AUDIO_TYPE = 2;
@@ -27,4 +27,8 @@ public interface GenericObject {
     JSONObject getMetadata();
 
     void setMetadata(JSONObject metadata);
+
+    void setCreationDate(long date);
+
+    double getCreationDate();
 }

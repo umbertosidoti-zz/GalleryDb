@@ -9,6 +9,7 @@ import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 import com.example.umberto.gallerydb.utils.ApplicationUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Umberto Sidoti on 29/06/2015.
@@ -27,11 +28,17 @@ public class SaveAndLoadGenericObject extends AsyncTask<Uri, Void, ArrayList<Gen
 
         if (isCancelled())
             return null;
+        ArrayList<GenericObject> result=null;
 
         if (object != null) {
             dataManager = GalleryApplication.getInstance().getServiceLocator().getDataManagerImplementation();
             id = dataManager.insert(object);
         }
-        return id > 0 ? dataManager.getAll() : null;
+        if(id > 0){
+            result= dataManager.getAll();
+            Collections.sort(result);
+            return result;
+        }
+        return null;
     }
 }

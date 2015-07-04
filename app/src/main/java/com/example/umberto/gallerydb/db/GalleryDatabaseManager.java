@@ -23,17 +23,20 @@ public class GalleryDatabaseManager implements GenericDataManager {
     private static final int DATABASE_VERSION = 1;
 
     private final String TABLE_NAME = "galleryItems";
+    private final String COLUMN_ID = "_id";
     private final String COLUMN_FILEPATH = "filePath";
     private final String COLUMN_TYPE = "type";
     private final String COLUMN_METADATA = "metadata";
+    private final String COLUMN_TIMESTAMP= "timestamp";
 
     private String CREATE_TABLE = "create table " + TABLE_NAME
-            + "(" + _ID + " integer primary key autoincrement, "
+            + "(" + COLUMN_ID + " integer primary key autoincrement, "
             + COLUMN_TYPE + " integer not null,"
             + COLUMN_FILEPATH + " text not null,"
-            + COLUMN_METADATA + " text);";
+            + COLUMN_METADATA + " text,"
+            + COLUMN_TIMESTAMP+ " integer not null);";
 
-    public final String[] COLUMNS = new String[]{_ID, COLUMN_TYPE, COLUMN_FILEPATH, COLUMN_METADATA};
+    public final String[] COLUMNS = new String[]{COLUMN_ID, COLUMN_TYPE, COLUMN_FILEPATH, COLUMN_TIMESTAMP, COLUMN_METADATA};
     String UPDATE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
     @Override
@@ -72,6 +75,7 @@ public class GalleryDatabaseManager implements GenericDataManager {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_TYPE, obj.getType());
         contentValues.put(COLUMN_FILEPATH, obj.getUriString());
+        contentValues.put(COLUMN_TIMESTAMP, obj.getCreationDate());
 
         if (obj.getMetadata() != null)
             contentValues.put(COLUMN_METADATA, (obj.getMetadata().toString()));
@@ -81,7 +85,7 @@ public class GalleryDatabaseManager implements GenericDataManager {
 
     @Override
     public int delete(GenericObject obj) {
-        return getWritableInstance().delete(TABLE_NAME, _ID + " = " + obj.getId(), null);
+        return getWritableInstance().delete(TABLE_NAME, COLUMN_ID + " = " + obj.getId(), null);
     }
 
     @Override
@@ -104,10 +108,13 @@ public class GalleryDatabaseManager implements GenericDataManager {
         String metadataString;
         long id;
         JSONObject jsonObj = null;
+        long timestamp;
 
         while (!cursor.isAfterLast()) {
             type = cursor.getInt(cursor.getColumnIndex(COLUMN_TYPE));
             path = cursor.getString(cursor.getColumnIndex(COLUMN_FILEPATH));
+            timestamp=cursor.getLong(cursor.getColumnIndex(COLUMN_TIMESTAMP));
+
             metadataString = cursor.getString(cursor.getColumnIndex(COLUMN_METADATA));
             if (metadataString != null) {
                 try {
@@ -117,8 +124,8 @@ public class GalleryDatabaseManager implements GenericDataManager {
                     e.printStackTrace();
                 }
             }
-            id = cursor.getLong(cursor.getColumnIndex(_ID));
-            GenericObject obj = ApplicationUtils.getObjectFromData(type, path, jsonObj);
+            id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
+            GenericObject obj = ApplicationUtils.getObjectFromData(type, path, jsonObj,timestamp);
             obj.setId(id);
             objects.add(obj);
             cursor.moveToNext();

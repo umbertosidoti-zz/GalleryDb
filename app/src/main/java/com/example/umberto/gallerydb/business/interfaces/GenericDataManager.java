@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by Umberto Sidoti on 26/06/2015.
  */
-public interface GenericDataManager extends BaseColumns {
+public interface GenericDataManager {
     String onCreate();
 
     String onUpdate();

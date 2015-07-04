@@ -81,11 +81,12 @@ public class ApplicationUtils {
 
     }
 
-    public static GenericObject getObjectFromData(int type, String path, JSONObject metadata) {
+    public static GenericObject getObjectFromData(int type, String path, JSONObject metadata, long timestamp) {
         GenericObject obj = GalleryApplication.getInstance().
                 getServiceLocator().getObjectImplementation();
         obj.setType(type);
         obj.setUriString(path);
+        obj.setCreationDate(timestamp);
         obj.setMetadata(metadata);
         return obj;
     }

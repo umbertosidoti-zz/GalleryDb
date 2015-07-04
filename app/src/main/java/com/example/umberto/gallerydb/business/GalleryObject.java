@@ -17,6 +17,11 @@ public class GalleryObject implements GenericObject {
     private int type;
     private String filePath;
     private JSONObject metadata;
+    private long date;
+
+    public GalleryObject(){
+        date= System.currentTimeMillis();
+    }
 
     public void setType(int type) {
         this.type = type;
@@ -28,6 +33,16 @@ public class GalleryObject implements GenericObject {
 
     public void setMetadata(JSONObject metadata) {
         this.metadata = metadata;
+    }
+
+    @Override
+    public void setCreationDate(long date) {
+        this.date=date;
+    }
+
+    @Override
+    public double getCreationDate() {
+        return date;
     }
 
     @Override
@@ -53,5 +68,11 @@ public class GalleryObject implements GenericObject {
     @Override
     public JSONObject getMetadata() {
         return metadata;
+    }
+
+    @Override
+    public int compareTo(GenericObject another) {
+        double compareDate = another.getCreationDate();
+        return (int)(compareDate-date);
     }
 }
