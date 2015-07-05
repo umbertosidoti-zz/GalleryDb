@@ -4,7 +4,7 @@ import org.json.JSONObject;
 /**
  * Created by Umberto Sidoti on 19/06/2015.
  */
-public interface GenericObject extends Comparable<GenericObject> {
+public interface GenericObject {
     int IMAGE_TYPE = 0;
     int VIDEO_TYPE = 1;
     int AUDIO_TYPE = 2;

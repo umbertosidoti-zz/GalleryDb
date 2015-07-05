@@ -18,8 +18,6 @@ public class LoadAllGenericObject extends AsyncTask<Void, Void, ArrayList<Generi
     protected ArrayList<GenericObject> doInBackground(Void... params) {
         GenericDataManager dataManager = GalleryApplication.getInstance().
                 getServiceLocator().getDataManagerImplementation();
-        ArrayList<GenericObject> result = dataManager.getAll();
-        Collections.sort(result);
-        return  result;
+        return  dataManager.getAll();
     }
 }

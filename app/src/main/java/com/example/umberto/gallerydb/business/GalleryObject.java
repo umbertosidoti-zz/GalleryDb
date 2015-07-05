@@ -69,10 +69,4 @@ public class GalleryObject implements GenericObject {
     public JSONObject getMetadata() {
         return metadata;
     }
-
-    @Override
-    public int compareTo(GenericObject another) {
-        double compareDate = another.getCreationDate();
-        return (int)(compareDate-date);
-    }
 }

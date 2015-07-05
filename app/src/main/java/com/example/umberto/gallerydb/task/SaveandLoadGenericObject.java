@@ -28,17 +28,11 @@ public class SaveAndLoadGenericObject extends AsyncTask<Uri, Void, ArrayList<Gen
 
         if (isCancelled())
             return null;
-        ArrayList<GenericObject> result=null;
 
         if (object != null) {
             dataManager = GalleryApplication.getInstance().getServiceLocator().getDataManagerImplementation();
             id = dataManager.insert(object);
         }
-        if(id > 0){
-            result= dataManager.getAll();
-            Collections.sort(result);
-            return result;
-        }
-        return null;
+        return id > 0 ? dataManager.getAll() : null;
     }
 }
