@@ -128,7 +128,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
         sortData();
     }
 
-
     @Override
     public int getItemCount() {
         return data == null ? 0 : data.size();
