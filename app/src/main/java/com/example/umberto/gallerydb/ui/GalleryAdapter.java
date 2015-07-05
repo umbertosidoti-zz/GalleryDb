@@ -9,12 +9,14 @@ import android.widget.TextView;
 
 import com.example.umberto.gallerydb.GalleryApplication;
 import com.example.umberto.gallerydb.R;
+import com.example.umberto.gallerydb.business.GenericObjectComparator;
 import com.example.umberto.gallerydb.business.interfaces.GenericImageLoader;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 import com.example.umberto.gallerydb.business.interfaces.RecycleViewFragment;
 import com.example.umberto.gallerydb.utils.ApplicationUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Umberto Sidoti on 19/06/2015.
@@ -24,6 +26,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
     private RecycleViewFragment listener;
     private ArrayList<GenericObject> data;
     private GenericImageLoader imageLoader;
+    private GenericObjectComparator comparator;
+
+    public GalleryAdapter(RecycleViewFragment listener) {
+        this.listener = listener;
+        comparator = new GenericObjectComparator();
+    }
 
     public class GalleryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         ImageView thumbnail;
@@ -33,7 +41,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
         public GalleryViewHolder(View v) {
             super(v);
-            type= (TextView) v.findViewById(R.id.type);
+            type = (TextView) v.findViewById(R.id.type);
             thumbnail = (ImageView) v.findViewById(R.id.thumbnail);
             firstLine = (TextView) v.findViewById(R.id.first_line);
             secondLine = (TextView) v.findViewById(R.id.second_line);
@@ -115,9 +123,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
         return data.get(position).getType();
     }
 
-    public GalleryAdapter(RecycleViewFragment listener) {
-        this.listener = listener;
+    public void setSortType(int sortType) {
+        comparator.setSortType(sortType);
+        sortData();
     }
+
 
     @Override
     public int getItemCount() {
@@ -126,5 +136,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
     public void setData(ArrayList<GenericObject> data) {
         this.data = data;
+        sortData();
+    }
+
+    private void sortData() {
+        if (data != null && data.size() > 0)
+            Collections.sort(data, comparator);
     }
 }

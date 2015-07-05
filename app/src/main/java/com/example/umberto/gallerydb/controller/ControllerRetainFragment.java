@@ -51,8 +51,7 @@ public class ControllerRetainFragment extends Fragment implements GenericGallery
     @Override
     public void start() {
         if (data != null) {
-            if (listener != null)
-                listener.onDataReady(data);
+            sendData();
         } else {
             loadData();
         }
@@ -77,12 +76,12 @@ public class ControllerRetainFragment extends Fragment implements GenericGallery
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(GalleryApplication.getInstance(),"Clicked ="+position,Toast.LENGTH_SHORT).show();
+        Toast.makeText(GalleryApplication.getInstance(), "Clicked =" + position, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onItemLongClick(int position) {
-        Toast.makeText(GalleryApplication.getInstance(),"Long clicked ="+position,Toast.LENGTH_SHORT).show();
+        Toast.makeText(GalleryApplication.getInstance(), "Long clicked =" + position, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -107,8 +106,12 @@ public class ControllerRetainFragment extends Fragment implements GenericGallery
     private void sendData(ArrayList<GenericObject> arrayData) {
         if (arrayData != null) {
             data = arrayData;
-            if (listener != null)
-                listener.onDataReady(data);
+            sendData();
         }
+    }
+
+    private void sendData() {
+        if (listener != null)
+            listener.onDataReady(data);
     }
 }
