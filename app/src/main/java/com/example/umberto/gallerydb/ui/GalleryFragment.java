@@ -98,7 +98,7 @@ public class GalleryFragment extends Fragment implements RecycleViewFragment, De
 
     @Override
     public void deleteItems(ArrayList<Integer> positionToRemove) {
-
+        listener.onActionModeDeleteRequest(positionToRemove);
     }
 
     @Override

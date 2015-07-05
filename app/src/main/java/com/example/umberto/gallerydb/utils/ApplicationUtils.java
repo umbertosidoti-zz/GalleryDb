@@ -14,6 +14,7 @@ import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -152,5 +153,20 @@ public class ApplicationUtils {
         point.x = (int) w;
         point.y = (int) (w * ratio);
         return point;
+    }
+
+    public static ArrayList<Long> getIdsFromPosition(ArrayList<GenericObject> data,
+                                                    ArrayList<Integer> positionToRemove) {
+
+        ArrayList<Long> idToDelete= new ArrayList<>();
+
+        int size = data.size();
+        for (Integer position:positionToRemove){
+            if(position<size) {
+                GenericObject obj = data.get(position);
+                idToDelete.add(obj.getId());
+            }
+        }
+        return idToDelete;
     }
 }

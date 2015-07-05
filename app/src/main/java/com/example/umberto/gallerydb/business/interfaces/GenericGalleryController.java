@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.ActionMode;
 
+import java.util.ArrayList;
+
 /**
  * Created by Umberto Sidoti on 22/06/2015.
  */
@@ -15,4 +17,6 @@ public interface GenericGalleryController {
     void onAddButtonPressed(Activity activity);
 
     void onResultReceived(int requestCode, int resultCode, Intent data);
+
+    void onDeleteElementRequest(ArrayList<Integer> positionToRemove);
 }

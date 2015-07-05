@@ -18,7 +18,7 @@ public interface GenericDataManager {
 
     long insert(GenericObject obj);
 
-    int delete(GenericObject obj);
+    int delete(long id);
 
     int update(GenericObject obj);
 

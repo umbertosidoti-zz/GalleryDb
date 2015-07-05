@@ -91,6 +91,11 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onActionModeDeleteRequest(ArrayList<Integer> positionToRemove) {
+        controller.onDeleteElementRequest(positionToRemove);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         controller.onResultReceived(requestCode, resultCode, data);

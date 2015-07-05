@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.umberto.gallerydb.GalleryApplication;
+import com.example.umberto.gallerydb.task.DeleteGenericObject;
 import com.example.umberto.gallerydb.task.LoadAllGenericObject;
 import com.example.umberto.gallerydb.task.SaveAndLoadGenericObject;
 import com.example.umberto.gallerydb.R;
@@ -87,6 +88,20 @@ public class ControllerRetainFragment extends Fragment implements GenericGallery
                 saveUriSelected(uri);
             }
         }
+    }
+
+    @Override
+    public void onDeleteElementRequest(ArrayList<Integer> positionToRemove) {
+
+        ArrayList<Long> idToDelete=ApplicationUtils.getIdsFromPosition(data, positionToRemove);
+
+        new DeleteGenericObject(){
+            @Override
+            protected void onPostExecute(ArrayList<GenericObject> arrayData) {
+                sendData(arrayData);
+            }
+        }.execute(idToDelete);
+
     }
 
     private void saveUriSelected(Uri uri) {

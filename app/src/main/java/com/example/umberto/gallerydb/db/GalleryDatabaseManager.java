@@ -84,8 +84,8 @@ public class GalleryDatabaseManager implements GenericDataManager {
     }
 
     @Override
-    public int delete(GenericObject obj) {
-        return getWritableInstance().delete(TABLE_NAME, COLUMN_ID + " = " + obj.getId(), null);
+    public int delete(long id) {
+        return getWritableInstance().delete(TABLE_NAME, COLUMN_ID + " = " + id, null);
     }
 
     @Override
