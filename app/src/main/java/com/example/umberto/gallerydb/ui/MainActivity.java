@@ -14,12 +14,12 @@ import com.example.umberto.gallerydb.business.interfaces.GenericControllerListen
 import com.example.umberto.gallerydb.business.interfaces.GenericGalleryController;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 import com.example.umberto.gallerydb.business.interfaces.RecycleViewFragment;
-import com.example.umberto.gallerydb.business.interfaces.RecycleViewFragmentListener;
+import com.example.umberto.gallerydb.business.interfaces.RecyclerViewFragmentListener;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements
-        GenericControllerListener, RecycleViewFragmentListener {
+        GenericControllerListener, RecyclerViewFragmentListener {
 
     private GenericGalleryController controller;
     private RecycleViewFragment recycleFragment;
@@ -78,16 +78,6 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onDataReady(ArrayList<GenericObject> data) {
         recycleFragment.onDataReceived(data);
-    }
-
-    @Override
-    public void onItemClick(int position) {
-        controller.onItemClick(position);
-    }
-
-    @Override
-    public void onItemLongClick(int position) {
-        controller.onItemLongClick(position);
     }
 
     @Override

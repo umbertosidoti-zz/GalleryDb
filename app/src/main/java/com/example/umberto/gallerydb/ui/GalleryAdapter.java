@@ -12,6 +12,7 @@ import com.example.umberto.gallerydb.R;
 import com.example.umberto.gallerydb.business.GenericObjectComparator;
 import com.example.umberto.gallerydb.business.interfaces.GenericImageLoader;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
+import com.example.umberto.gallerydb.business.interfaces.CheckableHolder;
 import com.example.umberto.gallerydb.business.interfaces.RecycleViewFragment;
 import com.example.umberto.gallerydb.utils.ApplicationUtils;
 
@@ -35,11 +36,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
                 getServiceLocator().getImageLoaderImplementation();
     }
 
-    public class GalleryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    public class GalleryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
+            View.OnLongClickListener,CheckableHolder {
         ImageView thumbnail;
         TextView firstLine;
         TextView secondLine;
         TextView type;
+        RelativeLayoutCheckable containerCheckable;
 
         public GalleryViewHolder(View v) {
             super(v);
@@ -47,8 +50,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
             thumbnail = (ImageView) v.findViewById(R.id.thumbnail);
             firstLine = (TextView) v.findViewById(R.id.first_line);
             secondLine = (TextView) v.findViewById(R.id.second_line);
+            containerCheckable= (RelativeLayoutCheckable) v.findViewById(R.id.container);
             v.setOnClickListener(this);
             v.setOnLongClickListener(this);
+        }
+
+        public void setChecked(boolean value){
+            containerCheckable.setChecked(value);
         }
 
         @Override

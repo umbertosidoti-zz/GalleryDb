@@ -9,6 +9,5 @@ public interface RecycleViewFragment {
     void onDataReceived(ArrayList<GenericObject> data);
 
     void onItemClick(int position);
-
     void onItemLongClick(int position);
 }

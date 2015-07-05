@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivityFragment">
 
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.example.umberto.gallerydb.ui.CheckableRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/recyclerView"
         android:background="@color/dark_primary_color"

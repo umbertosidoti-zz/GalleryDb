@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
  * A RelativeLayout that will always be square -- same width and height,
  * where the height is based off the width.
  */
-public class SquareRelativeLayout extends RelativeLayout {
+public class SquareRelativeLayout extends RelativeLayoutCheckable {
 
     public SquareRelativeLayout(Context context) {
         super(context);

@@ -5,6 +5,10 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.umberto.gallerydb.GalleryApplication;
@@ -30,10 +34,11 @@ public class ControllerRetainFragment extends Fragment implements GenericGallery
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (activity instanceof GenericControllerListener)
+        try {
             listener = (GenericControllerListener) activity;
-        else
-            new ClassCastException("Listener must implements GenericControllerListener");
+        } catch (ClassCastException e) {
+            throw new IllegalStateException("Listener must implements GenericControllerListener");
+        }
     }
 
     @Override
@@ -72,16 +77,6 @@ public class ControllerRetainFragment extends Fragment implements GenericGallery
         activity.startActivityForResult(
                 Intent.createChooser(intent, activity.getString(R.string.select_file_title)),
                 REQ_CODE_PICK_SOUND_FILE);
-    }
-
-    @Override
-    public void onItemClick(int position) {
-        Toast.makeText(GalleryApplication.getInstance(), "Clicked =" + position, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onItemLongClick(int position) {
-        Toast.makeText(GalleryApplication.getInstance(), "Long clicked =" + position, Toast.LENGTH_SHORT).show();
     }
 
     @Override
