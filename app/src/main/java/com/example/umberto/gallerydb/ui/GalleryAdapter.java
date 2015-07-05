@@ -31,6 +31,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
     public GalleryAdapter(RecycleViewFragment listener) {
         this.listener = listener;
         comparator = new GenericObjectComparator();
+        imageLoader = GalleryApplication.getInstance().
+                getServiceLocator().getImageLoaderImplementation();
     }
 
     public class GalleryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
@@ -47,8 +49,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
             secondLine = (TextView) v.findViewById(R.id.second_line);
             v.setOnClickListener(this);
             v.setOnLongClickListener(this);
-            imageLoader = GalleryApplication.getInstance().
-                    getServiceLocator().getImageLoaderImplementation();
         }
 
         @Override
