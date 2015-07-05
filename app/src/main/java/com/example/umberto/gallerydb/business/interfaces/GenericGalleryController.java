@@ -18,5 +18,5 @@ public interface GenericGalleryController {
 
     void onResultReceived(int requestCode, int resultCode, Intent data);
 
-    void onDeleteElementRequest(ArrayList<Integer> positionToRemove);
+    void onDeleteElementRequest(ArrayList<Integer> positionsToRemove);
 }

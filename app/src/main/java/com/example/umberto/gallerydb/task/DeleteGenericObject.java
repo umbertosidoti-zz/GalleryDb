@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by Umberto Sidoti on 05/07/2015.
  */
-public class DeleteGenericObject extends AsyncTask<ArrayList<Long>,Void, ArrayList<GenericObject>>{
+public class DeleteGenericObject extends AsyncTask<ArrayList<Long>, Void, ArrayList<GenericObject>> {
     @Override
     protected ArrayList<GenericObject> doInBackground(ArrayList<Long>... params) {
 
@@ -19,7 +19,7 @@ public class DeleteGenericObject extends AsyncTask<ArrayList<Long>,Void, ArrayLi
 
         GenericDataManager dataManager = GalleryApplication.getInstance().getServiceLocator().getDataManagerImplementation();
 
-        for (Long id:idsToDelete)
+        for (Long id : idsToDelete)
             dataManager.delete(id);
 
         return dataManager.getAll();

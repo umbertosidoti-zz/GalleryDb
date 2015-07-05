@@ -27,14 +27,14 @@ public class GalleryDatabaseManager implements GenericDataManager {
     private final String COLUMN_FILEPATH = "filePath";
     private final String COLUMN_TYPE = "type";
     private final String COLUMN_METADATA = "metadata";
-    private final String COLUMN_TIMESTAMP= "timestamp";
+    private final String COLUMN_TIMESTAMP = "timestamp";
 
     private String CREATE_TABLE = "create table " + TABLE_NAME
             + "(" + COLUMN_ID + " integer primary key autoincrement, "
             + COLUMN_TYPE + " integer not null,"
             + COLUMN_FILEPATH + " text not null,"
             + COLUMN_METADATA + " text,"
-            + COLUMN_TIMESTAMP+ " integer not null);";
+            + COLUMN_TIMESTAMP + " integer not null);";
 
     public final String[] COLUMNS = new String[]{COLUMN_ID, COLUMN_TYPE, COLUMN_FILEPATH, COLUMN_TIMESTAMP, COLUMN_METADATA};
     String UPDATE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
@@ -113,7 +113,7 @@ public class GalleryDatabaseManager implements GenericDataManager {
         while (!cursor.isAfterLast()) {
             type = cursor.getInt(cursor.getColumnIndex(COLUMN_TYPE));
             path = cursor.getString(cursor.getColumnIndex(COLUMN_FILEPATH));
-            timestamp=cursor.getLong(cursor.getColumnIndex(COLUMN_TIMESTAMP));
+            timestamp = cursor.getLong(cursor.getColumnIndex(COLUMN_TIMESTAMP));
 
             metadataString = cursor.getString(cursor.getColumnIndex(COLUMN_METADATA));
             if (metadataString != null) {
@@ -125,7 +125,7 @@ public class GalleryDatabaseManager implements GenericDataManager {
                 }
             }
             id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
-            GenericObject obj = ApplicationUtils.getObjectFromData(type, path, jsonObj,timestamp);
+            GenericObject obj = ApplicationUtils.getObjectFromData(type, path, jsonObj, timestamp);
             obj.setId(id);
             objects.add(obj);
             cursor.moveToNext();

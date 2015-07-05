@@ -91,9 +91,9 @@ public class ControllerRetainFragment extends Fragment implements GenericGallery
     }
 
     @Override
-    public void onDeleteElementRequest(ArrayList<Integer> positionToRemove) {
+    public void onDeleteElementRequest(ArrayList<Integer> positionsToRemove) {
 
-        ArrayList<Long> idToDelete=ApplicationUtils.getIdsFromPosition(data, positionToRemove);
+        ArrayList<Long> idToDelete=ApplicationUtils.getIdsFromPosition(data, positionsToRemove);
 
         new DeleteGenericObject(){
             @Override
