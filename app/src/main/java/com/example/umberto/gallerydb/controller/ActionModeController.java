@@ -21,10 +21,10 @@ import java.util.ArrayList;
  */
 public class ActionModeController {
 
-    private AppCompatActivity activity;
-    DeleteActionModeListener listener;
+    private final AppCompatActivity activity;
+    private final DeleteActionModeListener listener;
     private ActionMode mMode;
-    private SparseBooleanArray itemsChecked;
+    private final SparseBooleanArray itemsChecked;
 
     public ActionModeController(AppCompatActivity activity, DeleteActionModeListener listener) {
 

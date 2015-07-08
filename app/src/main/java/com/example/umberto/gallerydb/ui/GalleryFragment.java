@@ -72,7 +72,7 @@ public class GalleryFragment extends Fragment implements RecycleViewFragment, De
             listener.onRecycleViewReady();
     }
 
-    private View.OnClickListener addButtonListener = new View.OnClickListener() {
+    private final View.OnClickListener addButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (listener != null)

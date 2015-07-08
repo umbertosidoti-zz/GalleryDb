@@ -11,8 +11,8 @@ import com.example.umberto.gallerydb.R;
  * Created by Umberto Sidoti on 04/07/2015.
  */
 public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
-    private int space;
-    private int numColumns;
+    private final int space;
+    private final int numColumns;
 
     public SpacesItemDecoration(int space) {
         this.space = space;

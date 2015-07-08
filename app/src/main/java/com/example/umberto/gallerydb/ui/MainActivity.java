@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements
         controller = GalleryApplication.getInstance().getServiceLocator().
                 getGalleryControllerImplementation();
         if (!(controller instanceof Fragment))
-            new ClassCastException("Controller must be instance of fragment");
+            throw new IllegalStateException("Controller must be instance of fragment");
         fm.beginTransaction()
                 .add((Fragment) controller, GenericGalleryController.TAG_CONTROLLER)
                 .commit();

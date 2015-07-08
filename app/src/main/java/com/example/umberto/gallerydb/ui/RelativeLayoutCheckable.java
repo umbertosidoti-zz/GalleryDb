@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class RelativeLayoutCheckable extends RelativeLayout implements Checkable {
     private boolean checked = false;
-    private List<Checkable> checkableViews = new ArrayList<>();
+    private final List<Checkable> checkableViews = new ArrayList<>();
 
     public RelativeLayoutCheckable(Context context) {
         super(context, null);

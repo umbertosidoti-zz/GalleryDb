@@ -24,10 +24,10 @@ import java.util.Collections;
  */
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder> {
     private static final String EMPTY_STRING = "";
-    private RecycleViewFragment listener;
+    final private RecycleViewFragment listener;
     private ArrayList<GenericObject> data;
-    private GenericImageLoader imageLoader;
-    private GenericObjectComparator comparator;
+    final private GenericImageLoader imageLoader;
+    final private GenericObjectComparator comparator;
 
     public GalleryAdapter(RecycleViewFragment listener) {
         this.listener = listener;
@@ -38,11 +38,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
     public class GalleryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
             View.OnLongClickListener,CheckableHolder {
-        ImageView thumbnail;
-        TextView firstLine;
-        TextView secondLine;
-        TextView type;
-        RelativeLayoutCheckable containerCheckable;
+        final ImageView thumbnail;
+        final TextView firstLine;
+        final TextView secondLine;
+        final TextView type;
+        final RelativeLayoutCheckable containerCheckable;
 
         public GalleryViewHolder(View v) {
             super(v);

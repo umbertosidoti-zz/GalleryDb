@@ -29,7 +29,7 @@ public class GalleryDatabaseManager implements GenericDataManager {
     private final String COLUMN_METADATA = "metadata";
     private final String COLUMN_TIMESTAMP = "timestamp";
 
-    private String CREATE_TABLE = "create table " + TABLE_NAME
+    private final String CREATE_TABLE = "create table " + TABLE_NAME
             + "(" + COLUMN_ID + " integer primary key autoincrement, "
             + COLUMN_TYPE + " integer not null,"
             + COLUMN_FILEPATH + " text not null,"
