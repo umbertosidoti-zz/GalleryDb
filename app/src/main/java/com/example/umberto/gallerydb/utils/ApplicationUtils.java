@@ -70,10 +70,10 @@ public class ApplicationUtils {
                                 .getResources().getString(R.string.unknown));
     }
 
-    private static String getStringFromMetadata(JSONObject metadata, int metadataKeyArtist) {
+    private static String getStringFromMetadata(JSONObject metadata, int metadataKey) {
         try {
             return metadata
-                    .getString(Integer.toString(MediaMetadataRetriever.METADATA_KEY_ARTIST));
+                    .getString(Integer.toString(metadataKey));
         } catch (JSONException e) {
             return null;
         }
