@@ -1,11 +1,11 @@
 package com.example.umberto.gallerydb.utils;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.test.AndroidTestCase;
 
 import com.example.umberto.gallerydb.R;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
+import com.example.umberto.gallerydb.mockObject.MockGenericObject;
 
 /**
  * Created by Umberto Sidoti on 08/07/2015.
@@ -19,14 +19,15 @@ public class TestApplicationUtils extends AndroidTestCase {
         assertEquals(getContext().getString(R.string.mime_audio_video_image), intent.getType());
     }
 
-    public void testGetObjectFromUri(){
-        GenericObject obj=ApplicationUtils.getObjectFromUri(null);
-        assertNull(obj);
+    public void testGetLineOneText(){
 
-        String test="content://media/external/images/media/false_uri";
-        obj=ApplicationUtils.getObjectFromUri(Uri.parse(test));
-        assertNull(obj);
+        GenericObject mockGeneric= MockGenericObject.getGenericObject(MockGenericObject.TYPE_1);
+        String test=ApplicationUtils.getLineOneText(mockGeneric);
+        assertEquals(MockGenericObject.resultLineOne[MockGenericObject.TYPE_1],test);
 
+        mockGeneric= MockGenericObject.getGenericObject(MockGenericObject.TYPE_2);
+        test=ApplicationUtils.getLineOneText(mockGeneric);
+        assertEquals(MockGenericObject.resultLineOne[MockGenericObject.TYPE_2],test);
     }
 
 }
