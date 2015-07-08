@@ -47,7 +47,7 @@ public class GalleryFragment extends Fragment implements RecycleViewFragment, De
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_recycleview, container, false);
+        View v = inflater.inflate(R.layout.fragment_recycler_view, container, false);
         recyclerView = (CheckableRecyclerView) v.findViewById(R.id.recyclerView);
         addButton = (FloatingActionButton) v.findViewById(R.id.addButton);
         return v;
@@ -60,7 +60,7 @@ public class GalleryFragment extends Fragment implements RecycleViewFragment, De
         adapter = new GalleryAdapter(this);
         recyclerView.setLayoutManager(
                 new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.column_number)));
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_item_recycleview);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_item_recycler_view);
         recyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         recyclerView.setAdapter(adapter);
 

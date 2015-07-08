@@ -1,12 +1,8 @@
 package com.example.umberto.gallerydb.business;
 
-import android.util.SparseArray;
-
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 
 import org.json.JSONObject;
-
-import java.util.HashMap;
 
 /**
  * Created by Umberto Sidoti on 26/06/2015.

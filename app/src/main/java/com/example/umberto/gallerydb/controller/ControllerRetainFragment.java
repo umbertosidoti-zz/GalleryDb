@@ -5,13 +5,6 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.ActionMode;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.widget.Toast;
-
-import com.example.umberto.gallerydb.GalleryApplication;
 import com.example.umberto.gallerydb.task.DeleteGenericObject;
 import com.example.umberto.gallerydb.task.LoadAllGenericObject;
 import com.example.umberto.gallerydb.task.SaveAndLoadGenericObject;

@@ -49,13 +49,8 @@ public class ApplicationUtils {
     }
 
     public static String getLineOneText(GenericObject object) {
-
-        String title = null;
-        try {
-            title = object.getMetadata()
-                    .getString(Integer.toString(MediaMetadataRetriever.METADATA_KEY_TITLE));
-        } catch (JSONException e) {
-        }
+        String title = getStringFromMetadata(object.getMetadata(),
+                MediaMetadataRetriever.METADATA_KEY_TITLE);
         if (title != null) {
             return GalleryApplication.getInstance()
                     .getResources().getString(R.string.title, title);
@@ -67,19 +62,22 @@ public class ApplicationUtils {
     }
 
     public static String getLineTwoText(GenericObject object) {
-        String artist = null;
-        try {
-            artist = object.getMetadata()
-                    .getString(Integer.toString(MediaMetadataRetriever.METADATA_KEY_ARTIST));
-        } catch (JSONException e) {
-
-        }
+        String artist = getStringFromMetadata(object.getMetadata(),
+                MediaMetadataRetriever.METADATA_KEY_ARTIST);
         return GalleryApplication.getInstance()
                 .getResources().getString(R.string.artist,
                         artist != null ?
                                 artist : GalleryApplication.getInstance()
                                 .getResources().getString(R.string.unknown));
+    }
 
+    private static String getStringFromMetadata(JSONObject metadata, int metadataKeyArtist) {
+        try {
+            return metadata
+                    .getString(Integer.toString(MediaMetadataRetriever.METADATA_KEY_ARTIST));
+        } catch (JSONException e) {
+            return null;
+        }
     }
 
     public static GenericObject getObjectFromData(int type, String path, JSONObject metadata, long timestamp) {

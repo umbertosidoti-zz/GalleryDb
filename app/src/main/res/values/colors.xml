@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="floating_action_button_color_transparent">#CCFF4081</color>
-    <color name="floating_action_button_color">#FF4081</color>
+     <color name="floating_action_button_color">#FF4081</color>
     <color name="primary_color">#2196F3</color>
     <color name="dark_primary_color">#1976D2</color>
     <color name="metadata_color">#661976D2</color>

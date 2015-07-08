@@ -2,7 +2,6 @@ package com.example.umberto.gallerydb.business.interfaces;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.view.ActionMode;
 
 import java.util.ArrayList;
 

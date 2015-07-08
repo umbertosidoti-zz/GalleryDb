@@ -9,8 +9,6 @@ import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 import com.example.umberto.gallerydb.utils.ApplicationUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
-
 /**
  * Created by Umberto Sidoti on 29/06/2015.
  */

@@ -1,7 +1,5 @@
 package com.example.umberto.gallerydb.business.interfaces;
 
-import android.provider.BaseColumns;
-
 import java.util.ArrayList;
 
 /**

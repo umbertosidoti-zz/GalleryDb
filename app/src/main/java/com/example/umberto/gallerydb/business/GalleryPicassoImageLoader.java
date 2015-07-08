@@ -37,7 +37,8 @@ public class GalleryPicassoImageLoader implements GenericImageLoader {
     }
 
     @Override
-    public void loadImageFromVideoPath(Context context, ImageView destination, final String path, int placeolderId, int loadingId) {
+    public void loadImageFromVideoPath(Context context, ImageView destination,
+                                       final String path, int placeholderId, int loadingId) {
         Picasso.with(context)
                 .load(loadingId)
                 .transform(new Transformation() {
@@ -55,7 +56,7 @@ public class GalleryPicassoImageLoader implements GenericImageLoader {
                         return "loadFrameVideo";
                     }
                 })
-                .error(placeolderId)
+                .error(placeholderId)
                 .placeholder(loadingId)
                 .fit().centerCrop()
                 .into(destination);

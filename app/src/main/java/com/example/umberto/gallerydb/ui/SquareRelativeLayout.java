@@ -6,7 +6,6 @@ package com.example.umberto.gallerydb.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.RelativeLayout;
 
 /**
  * A RelativeLayout that will always be square -- same width and height,

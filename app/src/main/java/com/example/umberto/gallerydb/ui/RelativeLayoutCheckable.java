@@ -51,11 +51,11 @@ public class RelativeLayoutCheckable extends RelativeLayout implements Checkable
     public void setChecked(boolean checked) {
         this.checked = checked;
 
-        sendCheckedStatusToCheckableChilds(checked);
+        sendCheckedStatusToCheckableChildren(checked);
         refreshDrawableState();
     }
 
-    private void sendCheckedStatusToCheckableChilds(boolean checked) {
+    private void sendCheckedStatusToCheckableChildren(boolean checked) {
         for (Checkable c : checkableViews) {
             // Pass the information to all the child Checkable widgets
             c.setChecked(checked);
