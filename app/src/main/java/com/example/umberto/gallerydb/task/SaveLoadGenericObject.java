@@ -12,11 +12,12 @@ import java.util.ArrayList;
 /**
  * Created by Umberto Sidoti on 29/06/2015.
  */
-public class SaveAndLoadGenericObject extends AsyncTask<Uri, Void, ArrayList<GenericObject>> {
+public class SaveLoadGenericObject extends AsyncTask<Uri, Void, ArrayList<GenericObject>> {
 
     @Override
     protected ArrayList<GenericObject> doInBackground(Uri... params) {
         Uri uri = params[0];
+
         if (uri == null)
             return null;
 

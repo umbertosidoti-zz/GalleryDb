@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import com.example.umberto.gallerydb.task.DeleteGenericObject;
 import com.example.umberto.gallerydb.task.LoadAllGenericObject;
-import com.example.umberto.gallerydb.task.SaveAndLoadGenericObject;
+import com.example.umberto.gallerydb.task.SaveLoadGenericObject;
 import com.example.umberto.gallerydb.R;
 import com.example.umberto.gallerydb.business.interfaces.GenericControllerListener;
 import com.example.umberto.gallerydb.business.interfaces.GenericGalleryController;
@@ -98,7 +98,7 @@ public class ControllerRetainFragment extends Fragment implements GenericGallery
     }
 
     private void saveUriSelected(Uri uri) {
-        new SaveAndLoadGenericObject() {
+        new SaveLoadGenericObject() {
             @Override
             protected void onPostExecute(ArrayList<GenericObject> arrayData) {
                 sendData(arrayData);
