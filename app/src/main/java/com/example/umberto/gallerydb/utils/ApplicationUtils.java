@@ -26,12 +26,11 @@ public class ApplicationUtils {
     public static Intent getIntentFileChooser() {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*,video/*,audio/*");
+        intent.setType(GalleryApplication.getInstance().getString(R.string.mime_audio_video_image));
         return intent;
     }
 
     public static GenericObject getObjectFromUri(Uri uri) {
-
         int type = getTypeFromUri(uri);
         if (type == -1)
             return null;
@@ -129,7 +128,13 @@ public class ApplicationUtils {
     }
 
     private static int getTypeFromUri(Uri uri) {
+        if (uri==null)
+            return -1;
+
         String mime = getMimeType(uri);
+        if(mime==null)
+            return -1;
+
         if (mime.contains(GenericObject.AUDIO_MIME))
             return GenericObject.AUDIO_TYPE;
         else if (mime.contains(GenericObject.VIDEO_MIME))
@@ -140,6 +145,8 @@ public class ApplicationUtils {
     }
 
     public static String getMimeType(Uri uri) {
+        if (uri==null)
+            return null;
         ContentResolver cR = GalleryApplication.getInstance().getContentResolver();
         return cR.getType(uri);
     }

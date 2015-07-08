@@ -11,4 +11,5 @@
     <string name="type_image">Image</string>
     <string name="action_delete">delete</string>
     <string name="content_description_thumbnail">thumbnail</string>
+    <string name="mime_audio_video_image">image/*,video/*,audio/*</string>
 </resources>
