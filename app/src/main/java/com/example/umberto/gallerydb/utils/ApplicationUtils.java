@@ -76,12 +76,12 @@ public class ApplicationUtils {
                     .getString(Integer.toString(metadataKey));
         } catch (JSONException e) {
             return null;
+        }catch (NullPointerException e){
+            return null;
         }
     }
 
-    public static GenericObject getObjectFromData(int type, String path, JSONObject metadata, long timestamp) {
-        GenericObject obj = GalleryApplication.getInstance().
-                getServiceLocator().getObjectImplementation();
+    public static GenericObject setDataToObject(GenericObject obj, int type, String path, JSONObject metadata, long timestamp) {
         obj.setType(type);
         obj.setUriString(path);
         obj.setCreationDate(timestamp);

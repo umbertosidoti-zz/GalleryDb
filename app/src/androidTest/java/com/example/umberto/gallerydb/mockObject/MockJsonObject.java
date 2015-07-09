@@ -12,38 +12,24 @@ import java.util.HashMap;
  */
 public class MockJsonObject {
 
-    public static final int TYPE_NO_METADATA=1;
-    public static final int TYPE_ONLY_TITLE = 2;
+    public static final int TYPE_NO_METADATA = 0;
+    public static final int TYPE_ONLY_TITLE = 1;
+    public static final int TYPE_ONLY_ARTIST = 2;
+    public static final int TYPE_TITLE_ARTIST = 3;
 
-    public static final String MOCK_NO_METADATA="{}";
+    public static final String MOCK_NO_METADATA = "{}";
+    public static final String MOCK_TITLE = "{\"7\":\"Test title1\"}";
+    public static final String MOCK_ARTIST = "{\"2\":\"Test artist1\"}";
+    public static final String MOCK_TITLE_ARTIST = "{ \"7\":\"Test title2\",\"2\":\"Test artist2\"}";
 
-    public static final String[] MOCK_TITLE={"","Test title1","Test title2"};
+    public static final String[] MOCK_JSON_LIST = {MOCK_NO_METADATA, MOCK_TITLE, MOCK_ARTIST, MOCK_TITLE_ARTIST};
 
 
-    public static JSONObject getMockJsonObject(int type){
-
-        switch (type){
-            case TYPE_NO_METADATA:
-                return  getJsonObjectNoMetadata();
-            case TYPE_ONLY_TITLE:
-                return getJsonObjectOnlyTitle();
-            default:
-                return null;
-        }
-    }
-
-    private static JSONObject getJsonObjectNoMetadata(){
-
+    public static JSONObject getMockJsonObject(int type) {
         try {
-            return new JSONObject("{}");
+            return new JSONObject(MOCK_JSON_LIST[type]);
         } catch (JSONException e) {
             return null;
         }
-    }
-
-    public static JSONObject getJsonObjectOnlyTitle() {
-        HashMap<String, String> map = new HashMap<>();
-        map.put(Integer.toString(MediaMetadataRetriever.METADATA_KEY_TITLE), MOCK_TITLE[1]);
-        return new JSONObject(map);
     }
 }

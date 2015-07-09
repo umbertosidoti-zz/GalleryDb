@@ -125,7 +125,9 @@ public class GalleryDatabaseManager implements GenericDataManager {
                 }
             }
             id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
-            GenericObject obj = ApplicationUtils.getObjectFromData(type, path, jsonObj, timestamp);
+            GenericObject obj= GalleryApplication.getInstance().
+                    getServiceLocator().getObjectImplementation();
+            ApplicationUtils.setDataToObject(obj,type, path, jsonObj, timestamp);
             obj.setId(id);
             objects.add(obj);
             cursor.moveToNext();

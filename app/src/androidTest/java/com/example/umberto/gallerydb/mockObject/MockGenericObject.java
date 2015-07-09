@@ -10,26 +10,28 @@ import org.json.JSONObject;
  */
 public class MockGenericObject {
 
-    public static final int TYPE_1=0;
-    public static final int TYPE_2=1;
+    public static final int TYPE_AUDIO_META_EMPTY =0;
+    public static final int TYPE_AUDIO_META_TITLE =1;
+    public static final int TYPE_AUDIO_META_ARTIST =2;
+    public static final int TYPE_AUDIO_META_BOTH =3;
 
     private static final String[] urlList={
             "content://com.estrongs.files/mnt/sdcard/Alarms/Test1.mp3",
-            "content://com.estrongs.files/mnt/sdcard/Image/Test2.mp3"};
+            "content://com.estrongs.files/mnt/sdcard/Image/Test2.mp3",
+            "content://com.estrongs.files/mnt/sdcard/Image/Test3.mp3",
+            "content://com.estrongs.files/mnt/sdcard/Image/Test4.mp3"};
 
     private static final int[] jsonTypeList={
             MockJsonObject.TYPE_NO_METADATA,
             MockJsonObject.TYPE_ONLY_TITLE,
-            3};
+            MockJsonObject.TYPE_ONLY_ARTIST,
+            MockJsonObject.TYPE_TITLE_ARTIST};
 
     private static final int[] objectTypeList={
             GenericObject.AUDIO_TYPE,
-            GenericObject.AUDIO_TYPE,3};
-
-    public static final String[] resultLineOne={
-            "File name: Test1.mp3",
-            "Title: Test title1",
-    };
+            GenericObject.AUDIO_TYPE,
+            GenericObject.AUDIO_TYPE,
+            GenericObject.AUDIO_TYPE};
 
 
     public static GenericObject getGenericObject(int type){
