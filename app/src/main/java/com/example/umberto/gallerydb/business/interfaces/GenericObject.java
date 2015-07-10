@@ -4,31 +4,61 @@ import org.json.JSONObject;
 /**
  * Created by Umberto Sidoti on 19/06/2015.
  */
-public interface GenericObject {
-    int IMAGE_TYPE = 0;
-    int VIDEO_TYPE = 1;
-    int AUDIO_TYPE = 2;
-    String IMAGE_MIME = "image/";
-    String AUDIO_MIME = "audio/";
-    String VIDEO_MIME = "video/";
+public abstract class GenericObject {
 
-    long getId();
+    public static final int IMAGE_TYPE = 0;
+    public static final int VIDEO_TYPE = 1;
+    public static final int AUDIO_TYPE = 2;
+    public static final String IMAGE_MIME = "image/";
+    public static final String AUDIO_MIME = "audio/";
+    public static final String VIDEO_MIME = "video/";
+    private long id;
+    private int type;
+    private String filePath;
+    private JSONObject metadata;
+    private long date;
 
-    void setId(long id);
+    public GenericObject(){
+        date= System.currentTimeMillis();
+    }
 
-    int getType();
+    public void setType(int type) {
+        this.type = type;
+    }
 
-    void setType(int type);
+    public void setUriString(String uriString) {
+        this.filePath = uriString;
+    }
 
-    String getUriString();
+    public void setMetadata(JSONObject metadata) {
+        this.metadata = metadata;
+    }
 
-    void setUriString(String uriString);
+    public void setCreationDate(long date) {
+        this.date=date;
+    }
 
-    JSONObject getMetadata();
+    public double getCreationDate() {
+        return date;
+    }
 
-    void setMetadata(JSONObject metadata);
+    public long getId() {
+        return id;
+    }
 
-    void setCreationDate(long date);
+    public void setId(long id) {
+        this.id = id;
+    }
 
-    double getCreationDate();
+    public int getType() {
+        return type;
+    }
+
+    public String getUriString() {
+        return filePath;
+    }
+
+    public JSONObject getMetadata() {
+        return metadata;
+    }
 }
