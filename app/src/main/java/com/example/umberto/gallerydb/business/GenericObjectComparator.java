@@ -17,6 +17,10 @@ public class GenericObjectComparator implements Comparator<GenericObject> {
 
     @Override
     public int compare(GenericObject obj1, GenericObject obj2) {
+
+        if(obj1==null || obj2==null)
+            return 0;
+
         switch (sortType) {
             case ASCENDING:
             default:

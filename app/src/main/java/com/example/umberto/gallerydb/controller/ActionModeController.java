@@ -28,8 +28,16 @@ public class ActionModeController {
 
     public ActionModeController(AppCompatActivity activity, DeleteActionModeListener listener) {
 
-        this.listener = listener;
-        this.activity = activity;
+        try {
+            this.listener = listener;
+        } catch (ClassCastException e) {
+            throw new IllegalStateException("Listener must implements DeleteActionModeListener");
+        }
+        try {
+            this.activity = activity;
+        } catch (ClassCastException e) {
+            throw new IllegalStateException("Activity must be instance of  AppCompatActivity");
+        }
         itemsChecked = new SparseBooleanArray();
     }
 
@@ -61,7 +69,7 @@ public class ActionModeController {
     private int checkItemsSelected(int position) {
 
         boolean checked = itemsChecked.get(position);
-        checked=!checked;
+        checked = !checked;
 
         itemsChecked.put(position, checked);
         listener.checkItem(position, checked);

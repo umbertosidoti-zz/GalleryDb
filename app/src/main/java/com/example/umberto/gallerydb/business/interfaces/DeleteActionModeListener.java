@@ -7,5 +7,6 @@ import java.util.ArrayList;
  */
 public interface DeleteActionModeListener {
     void deleteItems(ArrayList<Integer> positionToRemove);
+
     void checkItem(int position, boolean value);
 }
