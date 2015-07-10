@@ -1,9 +1,9 @@
 package com.example.umberto.gallerydb.ui;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;

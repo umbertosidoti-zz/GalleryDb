@@ -144,7 +144,7 @@ public class ApplicationUtils {
         return -1;
     }
 
-    public static String getMimeType(Uri uri) {
+    private static String getMimeType(Uri uri) {
         if (uri==null)
             return null;
         ContentResolver cR = GalleryApplication.getInstance().getContentResolver();

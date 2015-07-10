@@ -27,17 +27,8 @@ public class ActionModeController {
     private final SparseBooleanArray itemsChecked;
 
     public ActionModeController(AppCompatActivity activity, DeleteActionModeListener listener) {
-
-        try {
-            this.listener = listener;
-        } catch (ClassCastException e) {
-            throw new IllegalStateException("Listener must implements DeleteActionModeListener");
-        }
-        try {
-            this.activity = activity;
-        } catch (ClassCastException e) {
-            throw new IllegalStateException("Activity must be instance of  AppCompatActivity");
-        }
+        this.listener = listener;
+        this.activity = activity;
         itemsChecked = new SparseBooleanArray();
     }
 

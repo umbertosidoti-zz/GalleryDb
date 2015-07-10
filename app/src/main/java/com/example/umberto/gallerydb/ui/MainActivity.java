@@ -1,8 +1,8 @@
 package com.example.umberto.gallerydb.ui;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         recycleFragment = (RecycleViewFragment) fm.findFragmentById(R.id.fragment);
         controller = (GenericGalleryController) fm.findFragmentByTag(GenericGalleryController.TAG_CONTROLLER);
 
@@ -47,11 +47,6 @@ public class MainActivity extends AppCompatActivity implements
                 .commit();
 
         fm.executePendingTransactions();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     @Override

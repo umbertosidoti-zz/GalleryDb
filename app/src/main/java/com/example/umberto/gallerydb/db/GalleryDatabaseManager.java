@@ -36,8 +36,8 @@ public class GalleryDatabaseManager implements GenericDataManager {
             + COLUMN_METADATA + " text,"
             + COLUMN_TIMESTAMP + " integer not null);";
 
-    public final String[] COLUMNS = new String[]{COLUMN_ID, COLUMN_TYPE, COLUMN_FILEPATH, COLUMN_TIMESTAMP, COLUMN_METADATA};
-    String UPDATE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
+    private final String[] COLUMNS = new String[]{COLUMN_ID, COLUMN_TYPE, COLUMN_FILEPATH, COLUMN_TIMESTAMP, COLUMN_METADATA};
+    private final String UPDATE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
     @Override
     public String onCreate() {
