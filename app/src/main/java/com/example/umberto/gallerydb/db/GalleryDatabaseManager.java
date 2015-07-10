@@ -96,8 +96,7 @@ public class GalleryDatabaseManager implements GenericDataManager {
     @Override
     public ArrayList<GenericObject> getAll() {
         ArrayList<GenericObject> objects = new ArrayList<>();
-        SQLiteDatabase writableDB = DatabaseHelper.getInstance(
-                GalleryApplication.getInstance()).getWritableDatabase();
+        SQLiteDatabase writableDB = getWritableInstance();
 
         Cursor cursor = writableDB.query(TABLE_NAME, COLUMNS, null, null, null, null, null);
 
