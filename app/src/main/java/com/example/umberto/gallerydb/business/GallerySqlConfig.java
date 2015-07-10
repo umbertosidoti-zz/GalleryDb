@@ -1,4 +1,6 @@
-package com.example.umberto.gallerydb.business.interfaces;
+package com.example.umberto.gallerydb.business;
+
+import com.example.umberto.gallerydb.business.interfaces.GenericSqlConfig;
 
 /**
  * Created by Umberto Sidoti on 10/07/2015.

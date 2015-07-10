@@ -1,6 +1,5 @@
 package com.example.umberto.gallerydb.business;
 
-import com.example.umberto.gallerydb.business.interfaces.GallerySqlConfig;
 import com.example.umberto.gallerydb.business.interfaces.GenericDataManager;
 import com.example.umberto.gallerydb.business.interfaces.GenericGalleryController;
 import com.example.umberto.gallerydb.business.interfaces.GenericImageLoader;
