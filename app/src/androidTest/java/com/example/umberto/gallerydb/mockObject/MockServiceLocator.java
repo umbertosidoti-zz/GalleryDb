@@ -6,6 +6,7 @@ import com.example.umberto.gallerydb.business.interfaces.GenericGalleryControlle
 import com.example.umberto.gallerydb.business.interfaces.GenericImageLoader;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 import com.example.umberto.gallerydb.business.interfaces.GenericServiceLocator;
+import com.example.umberto.gallerydb.business.interfaces.GenericSqlConfig;
 
 /**
  * Created by Umberto Sidoti on 10/07/2015.
@@ -29,5 +30,10 @@ public class MockServiceLocator implements GenericServiceLocator {
     @Override
     public GenericObject getObjectImplementation() {
         return new GalleryObject();
+    }
+
+    @Override
+    public GenericSqlConfig getSqlConfig() {
+        return null;
     }
 }

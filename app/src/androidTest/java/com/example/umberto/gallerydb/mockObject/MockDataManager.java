@@ -1,5 +1,6 @@
 package com.example.umberto.gallerydb.mockObject;
 
+import com.example.umberto.gallerydb.business.GalleryObject;
 import com.example.umberto.gallerydb.business.interfaces.GenericDataManager;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 
@@ -9,34 +10,41 @@ import java.util.ArrayList;
  * Created by Umberto Sidoti on 10/07/2015.
  */
 public class MockDataManager implements GenericDataManager {
-    @Override
-    public String onCreate() {
-        return null;
-    }
 
-    @Override
-    public String onUpdate() {
-        return null;
-    }
+    ArrayList<GenericObject> data;
 
-    @Override
-    public String getName() {
-        return null;
-    }
+    MockDataManager(){
 
-    @Override
-    public int getVersion() {
-        return 0;
-    }
+        data= new ArrayList<>(15);
+        GenericObject obj;
 
+        for(int i=0;i<10;i++){
+            obj=new GalleryObject();
+            obj.setId(i);
+            data.add(obj);
+        }
+
+    }
     @Override
     public long insert(GenericObject obj) {
-        return 0;
+        int size=data.size();
+        obj.setId(size);
+        data.add(obj);
+        return size;
     }
 
     @Override
     public int delete(long id) {
-        return 0;
+        int index=-1;
+        int size=data.size();
+        for(int i=0;(i<size)&&(index==-1);i++) {
+            GenericObject obj=data.get(i);
+            if (obj.getId() == id)
+                index =i;
+        }
+        if(index!=-1)
+            data.remove(index);
+        return 1;
     }
 
     @Override
@@ -46,6 +54,6 @@ public class MockDataManager implements GenericDataManager {
 
     @Override
     public ArrayList<GenericObject> getAll() {
-        return null;
+        return data;
     }
 }

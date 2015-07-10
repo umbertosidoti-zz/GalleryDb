@@ -11,6 +11,7 @@ import com.example.umberto.gallerydb.business.interfaces.GenericServiceLocator;
 public class GalleryApplication extends Application {
 
     private static GalleryApplication instance;
+
     private static GenericServiceLocator serviceLocator;
     @Override
     public void onCreate() {
@@ -27,5 +28,9 @@ public class GalleryApplication extends Application {
         if(serviceLocator==null)
             serviceLocator=new GalleryServiceLocator();
         return serviceLocator;
+    }
+
+    public void setServiceLocator(GenericServiceLocator serviceLocator) {
+        GalleryApplication.serviceLocator = serviceLocator;
     }
 }
