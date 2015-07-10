@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.umberto.gallerydb.GalleryApplication;
-import com.example.umberto.gallerydb.business.interfaces.GenericDataManager;
+import com.example.umberto.gallerydb.business.interfaces.GenericSqlConfig;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper sInstance;
@@ -29,23 +29,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private DatabaseHelper(Context context) {
         super(context,
                 GalleryApplication.getInstance().getServiceLocator().
-                        getDataManagerImplementation().getName(), null,
+                        getSqlConfig().getDatabaseName(), null,
                 GalleryApplication.getInstance().getServiceLocator().
-                        getDataManagerImplementation().getVersion());
+                        getSqlConfig().getDatabaseVersion());
     }
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        GenericDataManager dataManager = GalleryApplication.getInstance().
-                getServiceLocator().getDataManagerImplementation();
-        database.execSQL(dataManager.onCreate());
+        GenericSqlConfig config = GalleryApplication.getInstance().
+                getServiceLocator().getSqlConfig();
+        database.execSQL(config.getCreateDatabaseString());
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase database, int ver1, int ver2) {
-        GenericDataManager dataManager = GalleryApplication.getInstance().
-                getServiceLocator().getDataManagerImplementation();
-        database.execSQL(dataManager.onUpdate());
+        GenericSqlConfig config = GalleryApplication.getInstance().
+                getServiceLocator().getSqlConfig();
+        database.execSQL(config.getUpdateDatabaseString());
         onCreate(database);
     }
 }

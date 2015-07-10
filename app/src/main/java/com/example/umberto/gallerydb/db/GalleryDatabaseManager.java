@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.umberto.gallerydb.GalleryApplication;
 import com.example.umberto.gallerydb.business.interfaces.GenericDataManager;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
+import com.example.umberto.gallerydb.business.interfaces.GenericSqlConfig;
 import com.example.umberto.gallerydb.utils.ApplicationUtils;
 
 import org.json.JSONException;
@@ -19,50 +20,16 @@ import java.util.ArrayList;
  */
 public class GalleryDatabaseManager implements GenericDataManager {
 
-    private static final String DATABASE_NAME = "GalleryDb";
-    private static final int DATABASE_VERSION = 1;
+    GenericSqlConfig config;
 
-    private final String TABLE_NAME = "galleryItems";
-    private final String COLUMN_ID = "_id";
-    private final String COLUMN_FILEPATH = "filePath";
-    private final String COLUMN_TYPE = "type";
-    private final String COLUMN_METADATA = "metadata";
-    private final String COLUMN_TIMESTAMP = "timestamp";
-
-    private final String CREATE_TABLE = "create table " + TABLE_NAME
-            + "(" + COLUMN_ID + " integer primary key autoincrement, "
-            + COLUMN_TYPE + " integer not null,"
-            + COLUMN_FILEPATH + " text not null,"
-            + COLUMN_METADATA + " text,"
-            + COLUMN_TIMESTAMP + " integer not null);";
-
-    private final String[] COLUMNS = new String[]{COLUMN_ID, COLUMN_TYPE, COLUMN_FILEPATH, COLUMN_TIMESTAMP, COLUMN_METADATA};
-    private final String UPDATE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
-
-    @Override
-    public String onCreate() {
-        return CREATE_TABLE;
-    }
-
-    @Override
-    public String onUpdate() {
-        return UPDATE_TABLE;
-    }
-
-    @Override
-    public String getName() {
-        return DATABASE_NAME;
-    }
-
-    @Override
-    public int getVersion() {
-        return DATABASE_VERSION;
+    public GalleryDatabaseManager() {
+        config = GalleryApplication.getInstance().getServiceLocator().getSqlConfig();
     }
 
     @Override
     public long insert(GenericObject obj) {
         ContentValues contentValue = getContentValue(obj);
-        return getWritableInstance().insert(TABLE_NAME, null, contentValue);
+        return getWritableInstance().insert(config.getTableName(), null, contentValue);
     }
 
     private SQLiteDatabase getWritableInstance() {
@@ -73,19 +40,19 @@ public class GalleryDatabaseManager implements GenericDataManager {
 
     private ContentValues getContentValue(GenericObject obj) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_TYPE, obj.getType());
-        contentValues.put(COLUMN_FILEPATH, obj.getUriString());
-        contentValues.put(COLUMN_TIMESTAMP, obj.getCreationDate());
+        contentValues.put(config.getColumnType(), obj.getType());
+        contentValues.put(config.getColumnFilePath(), obj.getUriString());
+        contentValues.put(config.getColumnTimestamp(), obj.getCreationDate());
 
         if (obj.getMetadata() != null)
-            contentValues.put(COLUMN_METADATA, (obj.getMetadata().toString()));
+            contentValues.put(config.getColumnMetadata(), (obj.getMetadata().toString()));
 
         return contentValues;
     }
 
     @Override
     public int delete(long id) {
-        return getWritableInstance().delete(TABLE_NAME, COLUMN_ID + " = " + id, null);
+        return getWritableInstance().delete(config.getTableName(), config.getColumnId() + " = " + id, null);
     }
 
     @Override
@@ -98,7 +65,7 @@ public class GalleryDatabaseManager implements GenericDataManager {
         ArrayList<GenericObject> objects = new ArrayList<>();
         SQLiteDatabase writableDB = getWritableInstance();
 
-        Cursor cursor = writableDB.query(TABLE_NAME, COLUMNS, null, null, null, null, null);
+        Cursor cursor = writableDB.query(config.getTableName(), config.getAllColumns(), null, null, null, null, null);
 
         cursor.moveToFirst();
 
@@ -110,11 +77,11 @@ public class GalleryDatabaseManager implements GenericDataManager {
         long timestamp;
 
         while (!cursor.isAfterLast()) {
-            type = cursor.getInt(cursor.getColumnIndex(COLUMN_TYPE));
-            path = cursor.getString(cursor.getColumnIndex(COLUMN_FILEPATH));
-            timestamp = cursor.getLong(cursor.getColumnIndex(COLUMN_TIMESTAMP));
+            type = cursor.getInt(cursor.getColumnIndex(config.getColumnType()));
+            path = cursor.getString(cursor.getColumnIndex(config.getColumnFilePath()));
+            timestamp = cursor.getLong(cursor.getColumnIndex(config.getColumnTimestamp()));
 
-            metadataString = cursor.getString(cursor.getColumnIndex(COLUMN_METADATA));
+            metadataString = cursor.getString(cursor.getColumnIndex(config.getColumnMetadata()));
             if (metadataString != null) {
                 try {
                     jsonObj = new JSONObject(metadataString);
@@ -123,10 +90,10 @@ public class GalleryDatabaseManager implements GenericDataManager {
                     e.printStackTrace();
                 }
             }
-            id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
-            GenericObject obj= GalleryApplication.getInstance().
+            id = cursor.getLong(cursor.getColumnIndex(config.getColumnId()));
+            GenericObject obj = GalleryApplication.getInstance().
                     getServiceLocator().getObjectImplementation();
-            ApplicationUtils.setDataToObject(obj,type, path, jsonObj, timestamp);
+            ApplicationUtils.setDataToObject(obj, type, path, jsonObj, timestamp);
             obj.setId(id);
             objects.add(obj);
             cursor.moveToNext();

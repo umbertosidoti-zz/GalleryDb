@@ -11,4 +11,7 @@ public interface GenericServiceLocator {
     GenericDataManager getDataManagerImplementation();
 
     GenericObject getObjectImplementation();
+
+    GenericSqlConfig getSqlConfig();
+
 }
