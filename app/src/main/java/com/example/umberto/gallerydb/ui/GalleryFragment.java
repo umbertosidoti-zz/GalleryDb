@@ -22,11 +22,11 @@ import java.util.ArrayList;
 
 public class GalleryFragment extends Fragment implements RecycleViewFragment, DeleteActionModeListener {
 
-    private CheckableRecyclerView recyclerView;
-    private FloatingActionButton addButton;
-    private GalleryAdapter adapter;
-    private RecyclerViewFragmentListener listener;
-    private ActionModeController actionModeController;
+    protected CheckableRecyclerView recyclerView;
+    protected FloatingActionButton addButton;
+    protected GalleryAdapter adapter;
+    protected RecyclerViewFragmentListener listener;
+    protected ActionModeController actionModeController;
 
     @Override
     public void onAttach(Activity activity) {
