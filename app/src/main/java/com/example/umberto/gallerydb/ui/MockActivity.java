@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -17,24 +18,31 @@ import java.util.ArrayList;
  */
 public class MockActivity extends AppCompatActivity implements RecyclerViewFragmentListener {
 
+    public SparseArray<Boolean> functionCalled;
+    public static final int FUNCT_ADDBUTTON=1;
+    public static final int FUNCT_RECYLERREADY=2;
+    public static final int FUNCT_ACTIONDELETE=3;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.container_layout);
+        functionCalled=new SparseArray<>();
     }
 
     @Override
     public void onAddButtonClick() {
-
+        functionCalled.put(FUNCT_ADDBUTTON,Boolean.TRUE);
     }
 
     @Override
     public void onRecycleViewReady() {
-
+        functionCalled.put(FUNCT_RECYLERREADY,Boolean.TRUE);
     }
 
     @Override
     public void onActionModeDeleteRequest(ArrayList<Integer> positionToRemove) {
-
+        functionCalled.put(FUNCT_ACTIONDELETE,Boolean.TRUE);
     }
 }

@@ -15,14 +15,7 @@ public class MockDataManager implements GenericDataManager {
 
     MockDataManager(){
 
-        data= new ArrayList<>(15);
-        GenericObject obj;
-
-        for(int i=0;i<10;i++){
-            obj=new GalleryObject();
-            obj.setId(i);
-            data.add(obj);
-        }
+        data=MockFactory.getMockListGenericObject();
 
     }
     @Override

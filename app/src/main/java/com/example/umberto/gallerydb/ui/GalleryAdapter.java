@@ -25,6 +25,7 @@ import java.util.Collections;
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder> {
     private static final String EMPTY_STRING = "";
     final private RecycleViewFragment listener;
+
     private ArrayList<GenericObject> data;
     final private GenericImageLoader imageLoader;
     final private GenericObjectComparator comparator;
@@ -145,6 +146,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
         this.data = data;
         sortData();
     }
+    public ArrayList<GenericObject> getData() {
+        return data;
+    }
+
 
     private void sortData() {
         if (data != null && data.size() > 0)
