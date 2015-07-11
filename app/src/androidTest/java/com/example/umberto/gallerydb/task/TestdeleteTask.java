@@ -1,6 +1,5 @@
 package com.example.umberto.gallerydb.task;
 
-import android.test.AndroidTestCase;
 import android.test.InstrumentationTestCase;
 
 import com.example.umberto.gallerydb.GalleryApplication;
