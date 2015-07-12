@@ -38,9 +38,9 @@ public class TestDeleteTask extends InstrumentationTestCase {
                     new DeleteGenericObject() {
                         @Override
                         protected void onPostExecute(ArrayList<GenericObject> genericObjects) {
-                            assertEquals(8, genericObjects.size());
-                            assertEquals(-1, checkIfExist(genericObjects, 1));
-                            assertEquals(-1, checkIfExist(genericObjects, 5));
+                            assertEquals("Size of array not valid",8, genericObjects.size());
+                            assertEquals("Item not deleted", -1, checkIfExist(genericObjects, 1));
+                            assertEquals("Item not deleted",-1, checkIfExist(genericObjects, 5));
                             signal.countDown();
                         }
                     }.execute(itemsToDelete);
