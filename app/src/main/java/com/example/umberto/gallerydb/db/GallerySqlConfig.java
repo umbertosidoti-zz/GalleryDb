@@ -1,4 +1,4 @@
-package com.example.umberto.gallerydb.business;
+package com.example.umberto.gallerydb.db;
 
 import com.example.umberto.gallerydb.business.interfaces.GenericSqlConfig;
 

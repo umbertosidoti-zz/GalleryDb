@@ -8,6 +8,7 @@ import com.example.umberto.gallerydb.business.interfaces.GenericServiceLocator;
 import com.example.umberto.gallerydb.business.interfaces.GenericSqlConfig;
 import com.example.umberto.gallerydb.controller.LoadDataRetainFragmentController;
 import com.example.umberto.gallerydb.db.GalleryDatabaseManager;
+import com.example.umberto.gallerydb.db.GallerySqlConfig;
 
 /**
  * Created by Umberto Sidoti on 22/06/2015.
