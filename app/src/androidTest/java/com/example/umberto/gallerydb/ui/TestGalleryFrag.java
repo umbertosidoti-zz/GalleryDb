@@ -18,41 +18,41 @@ public class TestGalleryFrag extends BaseTestFragment {
         super.setUp();
     }
 
-    public void testFragInit(){
-        GalleryFragment fragment= new GalleryFragment(){
+    public void testFragInit() {
+        GalleryFragment fragment = new GalleryFragment() {
 
             @Override
             public void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
-                assertNotNull(listener);
+                assertNotNull("Listener is null", listener);
             }
 
             @Override
             public void onActivityCreated(Bundle savedInstanceState) {
                 super.onActivityCreated(savedInstanceState);
-                assertNotNull(adapter);
-                assertNotNull(recyclerView);
-                assertNotNull(addButton);
-                assertNotNull(actionModeController);
+                assertNotNull("Adapter is null", adapter);
+                assertNotNull("Recycler is null", recyclerView);
+                assertNotNull("Add button is null", addButton);
+                assertNotNull("Controller is null", actionModeController);
             }
         };
         startFragment(fragment);
-       solo.sleep(3000);
-        assertTrue(activity.functionCalled.get(MockActivity.FUNCT_RECYLERREADY));
+        solo.sleep(3000);
+        assertTrue("Function recyclerReady not called", activity.functionCalled.get(MockActivity.FUNCT_RECYLERREADY));
     }
 
-    public void testDataReceived(){
+    public void testDataReceived() {
 
         final ArrayList<GenericObject> data = MockFactory.getMockListGenericObject();
-        final int size=data.size();
+        final int size = data.size();
 
-        final GalleryFragment fragment= new GalleryFragment(){
+        final GalleryFragment fragment = new GalleryFragment() {
 
             @Override
             public void onDataReceived(ArrayList<GenericObject> data) {
                 super.onDataReceived(data);
-                assertTrue(data.size() == size);
-                assertTrue(adapter.getData().size()==size);
+                assertTrue("Array data not valid", data.size() == size);
+                assertTrue("Array data inside adapter not valid", adapter.getData().size() == size);
             }
         };
 

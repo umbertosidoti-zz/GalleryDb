@@ -10,9 +10,9 @@ import com.example.umberto.gallerydb.controller.LoadDataRetainFragmentController
  */
 public class TestLoadDataController extends BaseTestFragment {
 
-    public void testLoadData(){
+    public void testLoadData() {
 
-        LoadDataRetainFragmentController controller= new LoadDataRetainFragmentController(){
+        LoadDataRetainFragmentController controller = new LoadDataRetainFragmentController() {
             @Override
             public void onAttach(Activity activity) {
                 super.onAttach(activity);
@@ -30,7 +30,7 @@ public class TestLoadDataController extends BaseTestFragment {
         solo.sleep(1000);
         controller.start();
         solo.sleep(3000);
-        assertTrue(activity.functionCalled.get(MockActivity.FUNCT_DATAREADY));
-        assertNotNull(activity.data);
+        assertTrue("Function dataReady not called", activity.functionCalled.get(MockActivity.FUNCT_DATAREADY));
+        assertNotNull("Data are null", activity.data);
     }
 }

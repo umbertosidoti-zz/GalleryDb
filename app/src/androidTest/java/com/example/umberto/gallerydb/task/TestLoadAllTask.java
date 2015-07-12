@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class TestLoadAllTask extends InstrumentationTestCase {
 
-
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -36,10 +35,10 @@ public class TestLoadAllTask extends InstrumentationTestCase {
                         @Override
                         protected void onPostExecute(ArrayList<GenericObject> genericObjects) {
 
-                            assertNotNull(genericObjects);
-                            assertEquals(10, genericObjects.size());
-                            assertTrue(checkIfExist(genericObjects, 1) != -1);
-                            assertTrue(checkIfExist(genericObjects, 5)!=-1);
+                            assertNotNull("Data are null",genericObjects);
+                            assertEquals("Size array not valid", 10, genericObjects.size());
+                            assertTrue("Item not present", checkIfExist(genericObjects, 1) != -1);
+                            assertTrue("Item not present",checkIfExist(genericObjects, 5)!=-1);
                             signal.countDown();
                         }
                     }.execute();
