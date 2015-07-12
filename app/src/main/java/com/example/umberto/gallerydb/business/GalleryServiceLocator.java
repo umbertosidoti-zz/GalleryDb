@@ -6,7 +6,7 @@ import com.example.umberto.gallerydb.business.interfaces.GenericImageLoader;
 import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 import com.example.umberto.gallerydb.business.interfaces.GenericServiceLocator;
 import com.example.umberto.gallerydb.business.interfaces.GenericSqlConfig;
-import com.example.umberto.gallerydb.controller.ControllerRetainFragment;
+import com.example.umberto.gallerydb.controller.LoadDataRetainFragmentController;
 import com.example.umberto.gallerydb.db.GalleryDatabaseManager;
 
 /**
@@ -16,7 +16,7 @@ public class GalleryServiceLocator implements GenericServiceLocator {
 
     @Override
     public GenericGalleryController getGalleryControllerImplementation() {
-        return new ControllerRetainFragment();
+        return new LoadDataRetainFragmentController();
     }
 
     @Override

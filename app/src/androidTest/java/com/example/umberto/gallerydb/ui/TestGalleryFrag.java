@@ -68,7 +68,6 @@ public class TestGalleryFrag extends BaseTestFragment {
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
-
         solo.sleep(5000);
     }
 }
