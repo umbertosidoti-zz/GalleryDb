@@ -22,9 +22,9 @@ import java.util.ArrayList;
  */
 
 public class LoadDataRetainFragmentController extends Fragment implements GenericGalleryController {
-    private static final int REQ_CODE_PICK_SOUND_FILE = 12;
-    private GenericControllerListener listener;
-    private ArrayList<GenericObject> data;
+    private static final int REQ_CODE_PICK_FILE = 12;
+    protected GenericControllerListener listener;
+    protected ArrayList<GenericObject> data;
 
     @Override
     public void onAttach(Activity activity) {
@@ -71,12 +71,12 @@ public class LoadDataRetainFragmentController extends Fragment implements Generi
         Intent intent = ApplicationUtils.getIntentFileChooser();
         activity.startActivityForResult(
                 Intent.createChooser(intent, activity.getString(R.string.select_file_title)),
-                REQ_CODE_PICK_SOUND_FILE);
+                REQ_CODE_PICK_FILE);
     }
 
     @Override
     public void onResultReceived(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQ_CODE_PICK_SOUND_FILE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == REQ_CODE_PICK_FILE && resultCode == Activity.RESULT_OK) {
             if ((data != null) && (data.getData() != null)) {
                 Uri uri = data.getData();
                 saveUriSelected(uri);

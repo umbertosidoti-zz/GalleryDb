@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.example.umberto.gallerydb.R;
+import com.example.umberto.gallerydb.business.interfaces.GenericControllerListener;
+import com.example.umberto.gallerydb.business.interfaces.GenericObject;
 import com.example.umberto.gallerydb.business.interfaces.RecyclerViewFragmentListener;
 
 import java.util.ArrayList;
@@ -16,12 +18,14 @@ import java.util.ArrayList;
 /**
  * Created by Umberto Sidoti on 11/07/2015.
  */
-public class MockActivity extends AppCompatActivity implements RecyclerViewFragmentListener {
+public class MockActivity extends AppCompatActivity implements RecyclerViewFragmentListener,GenericControllerListener {
 
     public SparseArray<Boolean> functionCalled;
     public static final int FUNCT_ADDBUTTON=1;
     public static final int FUNCT_RECYLERREADY=2;
     public static final int FUNCT_ACTIONDELETE=3;
+    public static final int FUNCT_DATAREADY=4;
+    public ArrayList<GenericObject> data;
 
 
     @Override
@@ -44,5 +48,11 @@ public class MockActivity extends AppCompatActivity implements RecyclerViewFragm
     @Override
     public void onActionModeDeleteRequest(ArrayList<Integer> positionToRemove) {
         functionCalled.put(FUNCT_ACTIONDELETE,Boolean.TRUE);
+    }
+
+    @Override
+    public void onDataReady(ArrayList<GenericObject> data) {
+        this.data=data;
+        functionCalled.put(FUNCT_DATAREADY, Boolean.TRUE);
     }
 }
