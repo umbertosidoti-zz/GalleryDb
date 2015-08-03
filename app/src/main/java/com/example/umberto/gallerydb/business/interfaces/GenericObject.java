@@ -19,6 +19,7 @@ public abstract class GenericObject {
     private long date;
 
     public GenericObject(){
+        id=-1;
         date= System.currentTimeMillis();
     }
 
