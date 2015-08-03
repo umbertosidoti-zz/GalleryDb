@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.example.umberto.gallerydb.function.RxFunction;
-import com.example.umberto.gallerydb.task.LoadAllGenericObject;
-import com.example.umberto.gallerydb.task.SaveLoadGenericObject;
 import com.example.umberto.gallerydb.R;
 import com.example.umberto.gallerydb.business.interfaces.GenericControllerListener;
 import com.example.umberto.gallerydb.business.interfaces.GenericGalleryController;
@@ -17,6 +15,7 @@ import com.example.umberto.gallerydb.utils.ApplicationUtils;
 
 import java.util.ArrayList;
 
+import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -72,12 +71,12 @@ public class LoadDataRetainFragmentController extends Fragment implements Generi
     }
 
     private void loadData() {
-        new LoadAllGenericObject() {
-            @Override
-            protected void onPostExecute(ArrayList<GenericObject> arrayData) {
-                sendData(arrayData);
-            }
-        }.execute();
+        Long defaultValue = (long) 1;
+        subscription = Observable.just(defaultValue)
+                .subscribeOn(Schedulers.newThread())
+                .map(RxFunction.getFunctionGetAllItems())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(onNextAction);
     }
 
     @Override
@@ -101,7 +100,7 @@ public class LoadDataRetainFragmentController extends Fragment implements Generi
     @Override
     public void onDeleteElementRequest(ArrayList<Integer> positionsToRemove) {
 
-        subscription=ApplicationUtils.getIdsFromPosition(data, positionsToRemove)
+        subscription = ApplicationUtils.getIdsFromPosition(data, positionsToRemove)
                 .subscribeOn(Schedulers.newThread())
                 .flatMap(RxFunction.getFunctionConvertListToSingleValue())
                 .map(RxFunction.getFunctionDeleteSingleItem())
@@ -120,7 +119,7 @@ public class LoadDataRetainFragmentController extends Fragment implements Generi
 
 
     private void saveUriSelected(Uri uri) {
-        subscription=ApplicationUtils.getObservableUriFromUri(uri)
+        subscription = ApplicationUtils.getObservableUriFromUri(uri)
                 .subscribeOn(Schedulers.newThread())
                 .map(RxFunction.getFunctionGetObjectFromUri())
                 .map(RxFunction.getFunctionInsertItem())
