@@ -17,6 +17,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import rx.Observable;
+
 
 /**
  * Created by Umberto Sidoti on 26/06/2015.
@@ -160,8 +162,8 @@ public class ApplicationUtils {
         return point;
     }
 
-    public static ArrayList<Long> getIdsFromPosition(ArrayList<GenericObject> data,
-                                                    ArrayList<Integer> positionToRemove) {
+    public static Observable<ArrayList<Long>> getIdsFromPosition(ArrayList<GenericObject> data,
+                                                                 ArrayList<Integer> positionToRemove) {
 
         ArrayList<Long> idToDelete= new ArrayList<>();
 
@@ -172,6 +174,6 @@ public class ApplicationUtils {
                 idToDelete.add(obj.getId());
             }
         }
-        return idToDelete;
+        return Observable.just(idToDelete);
     }
 }

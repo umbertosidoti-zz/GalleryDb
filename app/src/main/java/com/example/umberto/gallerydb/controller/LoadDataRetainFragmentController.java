@@ -6,7 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.example.umberto.gallerydb.task.DeleteGenericObject;
+import com.example.umberto.gallerydb.function.RxFunction;
 import com.example.umberto.gallerydb.task.LoadAllGenericObject;
 import com.example.umberto.gallerydb.task.SaveLoadGenericObject;
 import com.example.umberto.gallerydb.R;
@@ -17,6 +17,11 @@ import com.example.umberto.gallerydb.utils.ApplicationUtils;
 
 import java.util.ArrayList;
 
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+
 /**
  * Created by Umberto Sidoti on 29/06/2015.
  */
@@ -25,6 +30,7 @@ public class LoadDataRetainFragmentController extends Fragment implements Generi
     private static final int REQ_CODE_PICK_FILE = 12;
     protected GenericControllerListener listener;
     protected ArrayList<GenericObject> data;
+    private Subscription subscription;
 
     @Override
     public void onAttach(Activity activity) {
@@ -46,6 +52,13 @@ public class LoadDataRetainFragmentController extends Fragment implements Generi
     public void onDetach() {
         super.onDetach();
         listener = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (subscription != null)
+            subscription.unsubscribe();
     }
 
     @Override
@@ -87,16 +100,23 @@ public class LoadDataRetainFragmentController extends Fragment implements Generi
     @Override
     public void onDeleteElementRequest(ArrayList<Integer> positionsToRemove) {
 
-        ArrayList<Long> idToDelete=ApplicationUtils.getIdsFromPosition(data, positionsToRemove);
-
-        new DeleteGenericObject(){
-            @Override
-            protected void onPostExecute(ArrayList<GenericObject> arrayData) {
-                sendData(arrayData);
-            }
-        }.execute(idToDelete);
-
+        subscription=ApplicationUtils.getIdsFromPosition(data, positionsToRemove)
+                .subscribeOn(Schedulers.newThread())
+                .flatMap(RxFunction.getFunctionConvertListToSingleValue())
+                .map(RxFunction.getFunctionDeleteSingleItem())
+                .last()
+                .map(RxFunction.getFunctionGetAllItems())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(onNextAction);
     }
+
+    private final Action1<ArrayList<GenericObject>> onNextAction = new Action1<ArrayList<GenericObject>>() {
+        @Override
+        public void call(ArrayList<GenericObject> data) {
+            sendData(data);
+        }
+    };
+
 
     private void saveUriSelected(Uri uri) {
         new SaveLoadGenericObject() {
