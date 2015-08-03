@@ -18,7 +18,7 @@ import rx.functions.Func1;
  */
 public class RxFunction {
 
-    public static Func1<List<Long>, Observable<Long>> getFunctionConvertListToSingleValue() {
+    public static Func1<List<Long>, Observable<Long>> convertListToSingleValue() {
 
         return new Func1<List<Long>, Observable<Long>>() {
             @Override
@@ -28,7 +28,7 @@ public class RxFunction {
         };
     }
 
-    public static Func1<Long, Long> getFunctionDeleteSingleItem() {
+    public static Func1<Long, Long> deleteSingleItem() {
 
         return new Func1<Long, Long>() {
             @Override
@@ -39,7 +39,7 @@ public class RxFunction {
         };
     }
 
-    public static Func1<Long, ArrayList<GenericObject>> getFunctionGetAllItems() {
+    public static Func1<Long, ArrayList<GenericObject>> getAllItems() {
         return new Func1<Long, ArrayList<GenericObject>>() {
             @Override
             public ArrayList<GenericObject> call(Long value) {
@@ -49,11 +49,11 @@ public class RxFunction {
         };
     }
 
-    public static Func1<Long, Boolean> getFunctionFilterNullValue() {
+    public static Func1<Long, Boolean> filterNotValidId() {
         return new Func1<Long, Boolean>() {
             @Override
             public Boolean call(Long s) {
-                return s!=-1;
+                return s != GenericObject.DEFAULT_ID;
             }
         };
     }
@@ -68,7 +68,7 @@ public class RxFunction {
     }
 
     public static Func1<GenericObject, Long> getFunctionInsertItem() {
-        return  new Func1<GenericObject, Long>() {
+        return new Func1<GenericObject, Long>() {
             @Override
             public Long call(GenericObject item) {
                 GenericDataManager dataManager = GalleryApplication.getInstance().getServiceLocator().getDataManagerImplementation();

@@ -5,7 +5,7 @@ import org.json.JSONObject;
  * Created by Umberto Sidoti on 19/06/2015.
  */
 public abstract class GenericObject {
-
+    public static final int DEFAULT_ID=-1;
     public static final int IMAGE_TYPE = 0;
     public static final int VIDEO_TYPE = 1;
     public static final int AUDIO_TYPE = 2;
@@ -19,7 +19,7 @@ public abstract class GenericObject {
     private long date;
 
     public GenericObject(){
-        id=-1;
+        id=DEFAULT_ID;
         date= System.currentTimeMillis();
     }
 

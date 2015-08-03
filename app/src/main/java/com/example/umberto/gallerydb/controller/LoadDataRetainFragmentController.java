@@ -19,7 +19,6 @@ import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.observers.Observers;
 import rx.schedulers.Schedulers;
 
 /**
@@ -74,7 +73,7 @@ public class LoadDataRetainFragmentController extends Fragment implements Generi
         Long defaultValue = (long) 1;
         subscription = Observable.just(defaultValue)
                 .subscribeOn(Schedulers.newThread())
-                .map(RxFunction.getFunctionGetAllItems())
+                .map(RxFunction.getAllItems())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(onNextAction);
     }
@@ -102,10 +101,10 @@ public class LoadDataRetainFragmentController extends Fragment implements Generi
 
         subscription = ApplicationUtils.getIdsFromPosition(data, positionsToRemove)
                 .subscribeOn(Schedulers.newThread())
-                .flatMap(RxFunction.getFunctionConvertListToSingleValue())
-                .map(RxFunction.getFunctionDeleteSingleItem())
+                .flatMap(RxFunction.convertListToSingleValue())
+                .map(RxFunction.deleteSingleItem())
                 .last()
-                .map(RxFunction.getFunctionGetAllItems())
+                .map(RxFunction.getAllItems())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(onNextAction);
     }
@@ -123,8 +122,8 @@ public class LoadDataRetainFragmentController extends Fragment implements Generi
                 .subscribeOn(Schedulers.newThread())
                 .map(RxFunction.getFunctionGetObjectFromUri())
                 .map(RxFunction.getFunctionInsertItem())
-                .filter(RxFunction.getFunctionFilterNullValue())
-                .map(RxFunction.getFunctionGetAllItems())
+                .filter(RxFunction.filterNotValidId())
+                .map(RxFunction.getAllItems())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(onNextAction);
     }
