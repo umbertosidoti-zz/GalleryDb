@@ -176,4 +176,8 @@ public class ApplicationUtils {
         }
         return Observable.just(idToDelete);
     }
+
+    public static Observable<Uri> getObservableUriFromUri(Uri uri){
+        return Observable.just(uri);
+    }
 }

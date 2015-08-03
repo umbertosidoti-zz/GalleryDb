@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.observers.Observers;
 import rx.schedulers.Schedulers;
 
 /**
@@ -119,12 +120,14 @@ public class LoadDataRetainFragmentController extends Fragment implements Generi
 
 
     private void saveUriSelected(Uri uri) {
-        new SaveLoadGenericObject() {
-            @Override
-            protected void onPostExecute(ArrayList<GenericObject> arrayData) {
-                sendData(arrayData);
-            }
-        }.execute(uri);
+        subscription=ApplicationUtils.getObservableUriFromUri(uri)
+                .subscribeOn(Schedulers.newThread())
+                .map(RxFunction.getFunctionGetObjectFromUri())
+                .map(RxFunction.getFunctionInsertItem())
+                .filter(RxFunction.getFunctionFilterNullValue())
+                .map(RxFunction.getFunctionGetAllItems())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(onNextAction);
     }
 
     private void sendData(ArrayList<GenericObject> arrayData) {
